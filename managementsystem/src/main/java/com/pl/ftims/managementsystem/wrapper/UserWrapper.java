@@ -15,11 +15,14 @@ public class UserWrapper {
 
     private String email;
 
+    private String status;
 
-    public UserWrapper(Integer id, String name, String surname, String email) {
+
+    public UserWrapper(Integer id, String name, String surname, String email, String status) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.email = email;
+        this.status = status;
     }
 }

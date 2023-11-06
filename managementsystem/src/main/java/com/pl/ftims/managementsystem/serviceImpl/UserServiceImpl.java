@@ -1,6 +1,7 @@
 package com.pl.ftims.managementsystem.serviceImpl;
 
 import com.pl.ftims.managementsystem.JWT.CustomerUsersDetailsService;
+import com.pl.ftims.managementsystem.JWT.JwtFilter;
 import com.pl.ftims.managementsystem.JWT.JwtUtils;
 import com.pl.ftims.managementsystem.POJO.User;
 import com.pl.ftims.managementsystem.constants.BusinessConstants;
@@ -38,6 +39,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     JwtUtils jwtUtils;
 
+    @Autowired
+    JwtFilter jwtFilter;
+
     @Override
     public ResponseEntity<String> signUp(Map<String, String> requestMap) {
         log.info("Inside signup", requestMap);
@@ -72,11 +76,11 @@ public class UserServiceImpl implements UserService {
         user.setName(requestMap.get("name"));
         user.setSurname(requestMap.get("surname"));
         user.setPassword(requestMap.get("password"));
-        user.setRole(requestMap.get("user"));
+        user.setRole("user");
+        user.setStatus("false");
         return user;
     }
 
-    // login to change by security: 3rd part, 8:12
     @Override
     public ResponseEntity<String> login(Map<String, String> requestMap) {
         log.info("Inside login");
@@ -88,7 +92,7 @@ public class UserServiceImpl implements UserService {
                 if(customerUsersDetailsService.getUserDetails().getStatus().equalsIgnoreCase("true")){
                     return new ResponseEntity<String>("{\"token\":\"" +
                             jwtUtils.generateToken(customerUsersDetailsService.getUserDetails().getEmail(),
-                                    customerUsersDetailsService.getUserDetails().getRole() + "\"}"), HttpStatus.OK);
+                                    customerUsersDetailsService.getUserDetails().getRole()) + "\"}", HttpStatus.OK);
                 }
             }else {
                 return new ResponseEntity<String>("{\"message\":\""+"Wait for Admin approval."+"\"}", HttpStatus.BAD_REQUEST);
@@ -103,17 +107,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity<List<UserWrapper>> getAllUsers() {
         try{
-//            if(jwtFilter.isAdmin()){
-//
-//            }else{
-//                return new ResponseEntity<>(new ArrayList<>(), HttpStatus.UNAUTHORIZED);
-//            }
-            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.UNAUTHORIZED);
+            if(jwtFilter.isAdmin()){
+                return new ResponseEntity<>(userDao.getAllUsers(),HttpStatus.OK);
+            }else{
+                return new ResponseEntity<>(new ArrayList<>(), HttpStatus.UNAUTHORIZED);
+            }
         }catch(Exception exception){
             exception.printStackTrace();
         }
             return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
-
 }
