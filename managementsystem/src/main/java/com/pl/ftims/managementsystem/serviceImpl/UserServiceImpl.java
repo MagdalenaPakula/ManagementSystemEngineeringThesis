@@ -1,5 +1,7 @@
 package com.pl.ftims.managementsystem.serviceImpl;
 
+import com.pl.ftims.managementsystem.JWT.CustomerUsersDetailsService;
+import com.pl.ftims.managementsystem.JWT.JwtUtils;
 import com.pl.ftims.managementsystem.POJO.User;
 import com.pl.ftims.managementsystem.constants.BusinessConstants;
 import com.pl.ftims.managementsystem.dao.UserDao;
@@ -7,13 +9,14 @@ import com.pl.ftims.managementsystem.service.UserService;
 import com.pl.ftims.managementsystem.utils.BusinessUtils;
 import com.pl.ftims.managementsystem.wrapper.UserWrapper;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import java.net.Authenticator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +28,16 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserDao userDao;
+
+    @Autowired
+    AuthenticationManager authenticationManager;
+
+    @Autowired
+    CustomerUsersDetailsService customerUsersDetailsService;
+
+    @Autowired
+    JwtUtils jwtUtils;
+
     @Override
     public ResponseEntity<String> signUp(Map<String, String> requestMap) {
         log.info("Inside signup", requestMap);
@@ -68,13 +81,23 @@ public class UserServiceImpl implements UserService {
     public ResponseEntity<String> login(Map<String, String> requestMap) {
         log.info("Inside login");
         try {
-//            Authentication authentication = authenticationManager.authenticate();
-
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(requestMap.get("email"), requestMap.get("password"))
+            );
+            if(authentication.isAuthenticated()){
+                if(customerUsersDetailsService.getUserDetails().getStatus().equalsIgnoreCase("true")){
+                    return new ResponseEntity<String>("{\"token\":\"" +
+                            jwtUtils.generateToken(customerUsersDetailsService.getUserDetails().getEmail(),
+                                    customerUsersDetailsService.getUserDetails().getRole() + "\"}"), HttpStatus.OK);
+                }
+            }else {
+                return new ResponseEntity<String>("{\"message\":\""+"Wait for Admin approval."+"\"}", HttpStatus.BAD_REQUEST);
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
             return BusinessUtils.getResponseEntity(BusinessConstants.SOMETHING_WENT_WRONG, HttpStatus.BAD_REQUEST);
         }
-        return null;
+        return new ResponseEntity<String>("{\"message\":\""+"Bad credentials."+"\"}", HttpStatus.BAD_REQUEST);
     }
 
     @Override

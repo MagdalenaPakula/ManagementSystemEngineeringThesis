@@ -40,13 +40,18 @@ public class User implements Serializable {
     @Column(name = "role")
     private String role;
 
-    public User(Integer id, String name, String surname, String email, String password, String role) {
+    @Column(name = "status")
+    private String status;
+
+
+    public User(Integer id, String name, String surname, String email, String password, String role, String status) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.status = status;
     }
 
     public User() {
@@ -100,4 +105,14 @@ public class User implements Serializable {
     public void setRole(String role) {
         this.role = role;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+
 }
