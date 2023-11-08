@@ -15,6 +15,8 @@ public interface UserDao extends JpaRepository<User, Integer> {
 
     User findByEmailId(@Param("email") String email);
 
+    User findByEmail(String email);
+
     List<UserWrapper> getAllUsers();
 
     List<String> getAllAdmin();
