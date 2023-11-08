@@ -1,5 +1,6 @@
 package com.pl.ftims.managementsystem.serviceImpl;
 
+import com.google.common.base.Strings;
 import com.pl.ftims.managementsystem.JWT.CustomerUsersDetailsService;
 import com.pl.ftims.managementsystem.JWT.JwtFilter;
 import com.pl.ftims.managementsystem.JWT.JwtUtils;
@@ -167,6 +168,20 @@ public class UserServiceImpl implements UserService {
                 return BusinessUtils.getResponseEntity("Incorrect Old Password", HttpStatus.BAD_REQUEST);
             }
             return BusinessUtils.getResponseEntity(BusinessConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        }catch (Exception exception){
+            exception.printStackTrace();
+        }
+        return BusinessUtils.getResponseEntity(BusinessConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public ResponseEntity<String> forgotPassword(Map<String, String> requestMap) {
+        try{
+            User user = userDao.findByEmail(requestMap.get("email"));
+            if(!Objects.isNull(user) && !Strings.isNullOrEmpty(user.getEmail()));
+            emailUtils.forgotMail(user.getEmail(), "Credentials by Business", user.getPassword());
+
+            return BusinessUtils.getResponseEntity("Check your email for Credentials", HttpStatus.OK);
         }catch (Exception exception){
             exception.printStackTrace();
         }
