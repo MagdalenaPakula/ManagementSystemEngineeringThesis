@@ -8,6 +8,7 @@ import com.pl.ftims.managementsystem.constants.BusinessConstants;
 import com.pl.ftims.managementsystem.dao.UserDao;
 import com.pl.ftims.managementsystem.service.UserService;
 import com.pl.ftims.managementsystem.utils.BusinessUtils;
+import com.pl.ftims.managementsystem.utils.EmailUtils;
 import com.pl.ftims.managementsystem.wrapper.UserWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     JwtFilter jwtFilter;
+
+    @Autowired
+    EmailUtils emailUtils;
 
     @Override
     public ResponseEntity<String> signUp(Map<String, String> requestMap) {
@@ -104,7 +108,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity<List<UserWrapper>> getAllUsers() {
         try{
-            if(jwtFilter.isAdmin()){
+            if(jwtFilter.isUser()){
                 return new ResponseEntity<>(userDao.getAllUsers(),HttpStatus.OK);
             }else{
                 return new ResponseEntity<>(new ArrayList<>(), HttpStatus.UNAUTHORIZED);
@@ -118,10 +122,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity<String> update(Map<String, String> requestMap) {
         try{
-            if(jwtFilter.isUser()){
+            if(jwtFilter.isAdmin()){
                 Optional<User> optional = userDao.findById(Integer.parseInt(requestMap.get("id")));
                 if(!optional.isEmpty()){
                     userDao.updateStatus(requestMap.get("status"), Integer.parseInt(requestMap.get("id")));
+                    sendMailToAllAdmin(requestMap.get("status"), optional.get().getEmail(), userDao.getAllAdmin());
                     return BusinessUtils.getResponseEntity("User Status updated", HttpStatus.OK);
                 }else{
                     BusinessUtils.getResponseEntity("ID doesnt exist in the database", HttpStatus.OK);
@@ -133,5 +138,14 @@ public class UserServiceImpl implements UserService {
             exception.printStackTrace();
         }
         return BusinessUtils.getResponseEntity(BusinessConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    private void sendMailToAllAdmin(String status, String user, List<String> allAdmin) {
+        allAdmin.remove(jwtFilter.getCurrentUser());
+        if(status!=null && status.equalsIgnoreCase("true")){
+            emailUtils.sendSimpleMessage(jwtFilter.getCurrentUser(),"Account Approved", "USER:-"+user+"\n is approved by \nADMIN:-"+jwtFilter.getCurrentUser(), allAdmin);
+        }else{
+            emailUtils.sendSimpleMessage(jwtFilter.getCurrentUser(),"Account Disabled", "USER:-"+user+"\n is disabled by \nADMIN:-"+jwtFilter.getCurrentUser(), allAdmin);
+        }
     }
 }
