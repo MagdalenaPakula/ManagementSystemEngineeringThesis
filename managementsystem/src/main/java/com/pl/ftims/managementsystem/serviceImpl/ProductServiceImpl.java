@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -74,6 +75,45 @@ public class ProductServiceImpl implements ProductService {
                     }
                 }
                 return BusinessUtils.getResponseEntity(BusinessConstants.INVALID_DATA, HttpStatus.BAD_REQUEST);
+            }else{
+                return BusinessUtils.getResponseEntity(BusinessConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
+            }
+        }catch(Exception exception){
+            exception.printStackTrace();
+        }
+        return BusinessUtils.getResponseEntity(BusinessConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public ResponseEntity<String> deleteProduct(Integer id) {
+        try{
+            if(jwtFilter.isAdmin()){
+                Optional optional = productDao.findById(id);
+                if(!optional.isEmpty()){
+                    productDao.deleteById(id);
+                    return BusinessUtils.getResponseEntity("Product deleted successfully", HttpStatus.OK);
+                }
+                return BusinessUtils.getResponseEntity(BusinessConstants.INVALID_DATA, HttpStatus.BAD_REQUEST);
+            }else{
+                return BusinessUtils.getResponseEntity(BusinessConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
+            }
+        }catch(Exception exception){
+            exception.printStackTrace();
+        }
+        return BusinessUtils.getResponseEntity(BusinessConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public ResponseEntity<String> updateStatus(Map<String, String> requestMap) {
+        try{
+            if(jwtFilter.isAdmin()){
+                Optional optional = productDao.findById(Integer.parseInt(requestMap.get("id")));
+                if(!optional.isEmpty()){
+                    productDao.updateProductStatus(requestMap.get("status"), Integer.parseInt(requestMap.get("id")));
+                    return BusinessUtils.getResponseEntity("Product updated successfully", HttpStatus.OK);
+                }else{
+                    return BusinessUtils.getResponseEntity("Product ID does not exist", HttpStatus.OK);
+                }
             }else{
                 return BusinessUtils.getResponseEntity(BusinessConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
             }

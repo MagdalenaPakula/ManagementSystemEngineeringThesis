@@ -1,7 +1,5 @@
 package com.pl.ftims.managementsystem.rest;
 
-import com.pl.ftims.managementsystem.POJO.Category;
-import com.pl.ftims.managementsystem.POJO.Product;
 import com.pl.ftims.managementsystem.wrapper.ProductWrapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,4 +18,12 @@ public interface ProductRest {
 
     @PostMapping(path = "/update")
     ResponseEntity<String> updateProduct(@RequestBody(required = true) Map<String,String> requestMap);
+
+    @PostMapping(path = "/delete/{id}")
+    ResponseEntity<String> deleteProduct(@PathVariable Integer id);
+
+    @PostMapping(path = "/updateStatus")
+    ResponseEntity<String> updateStatus(@RequestBody(required = true) Map<String,String> requestMap);
+
+
 }
