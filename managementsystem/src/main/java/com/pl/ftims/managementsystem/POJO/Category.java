@@ -8,7 +8,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@NamedQuery(name = "Category.getAllCategory", query = "select c from Category c")
+@NamedQuery(name = "Category.getAllCategory", query = "select c from Category c where c.id in(select p.category from Product p where p.status='true')")
 
 @Data
 @Entity
@@ -27,25 +27,19 @@ public class Category implements Serializable {
     @Column(name = "name")
     private String name;
 
-//    This is for subcategories - products in each category
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "id")
-//    private Integer id;
-//
-//    @Column(name = "name")
-//    private String name;
-//
-//    @Column(name = "mass")
-//    private Integer mass;
-//
-//    @Column(name = "amount")
-//    private Integer amount;
-//
-//    @Column(name = "available")
-//    private String available;
-//
-//    @Column(name = "onSale")
-//    private String onSale;
+    public Integer getId() {
+        return id;
+    }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
