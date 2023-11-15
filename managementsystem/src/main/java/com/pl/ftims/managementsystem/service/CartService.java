@@ -10,4 +10,8 @@ public interface CartService {
     ResponseEntity<List<Cart>> getBills();
 
     ResponseEntity<String> generateReport(Map<String, Object> requestMap);
+
+    ResponseEntity<byte[]> getPdf(Map<String, Object> requestMap);
+
+    ResponseEntity<String> deleteBill(Integer id);
 }

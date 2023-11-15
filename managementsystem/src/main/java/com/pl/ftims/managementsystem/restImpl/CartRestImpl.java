@@ -41,4 +41,26 @@ public class CartRestImpl implements CartRest {
         }
         return new ResponseEntity<List<Cart>>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @Override
+    public ResponseEntity<byte[]> getPdf(Map<String, Object> requestMap) {
+        try{
+            return cartService.getPdf(requestMap);
+
+        }catch(Exception exception){
+            exception.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<String> deleteBill(Integer id) {
+        try{
+            return cartService.deleteBill(id);
+
+        }catch(Exception exception){
+            exception.printStackTrace();
+        }
+        return null;
+    }
 }
