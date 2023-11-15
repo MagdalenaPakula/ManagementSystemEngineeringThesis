@@ -72,4 +72,26 @@ public class ProductRestImpl implements ProductRest {
         }
         return BusinessUtils.getResponseEntity(BusinessConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @Override
+    public ResponseEntity<List<ProductWrapper>> getProductByCategory(Integer id) {
+        try{
+            return productService.getProductByCategory(id);
+
+        }catch(Exception exception){
+            exception.printStackTrace();
+        }
+        return new ResponseEntity<List<ProductWrapper>>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public ResponseEntity<List<ProductWrapper>> getProductById(Integer id) {
+        try{
+            return productService.getProductById(id);
+
+        }catch(Exception exception){
+            exception.printStackTrace();
+        }
+        return new ResponseEntity<List<ProductWrapper>>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
