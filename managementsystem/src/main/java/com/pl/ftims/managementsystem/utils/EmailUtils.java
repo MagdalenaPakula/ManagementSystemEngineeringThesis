@@ -17,27 +17,27 @@ public class EmailUtils {
     private JavaMailSender javaMailSender;
 
 
-    public void sendSimpleMessage(String to, String subject, String text, List<String> list){
+    public void sendSimpleMessage(String to, String subject, String text, List<String> list) {
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setFrom("dupa927468@mailinator.com");
         simpleMailMessage.setTo(to);
         simpleMailMessage.setSubject(subject);
         simpleMailMessage.setText(text);
-        if(list!=null && list.size()>0){
+        if (list != null && list.size() > 0) {
             simpleMailMessage.setCc(getCCArray(list));
         }
         javaMailSender.send(simpleMailMessage);
     }
 
-    private String[] getCCArray(List<String> ccList){
+    private String[] getCCArray(List<String> ccList) {
         String[] cc = new String[ccList.size()];
-        for(int i=0;i<ccList.size();i++){
+        for (int i = 0; i < ccList.size(); i++) {
             cc[i] = ccList.get(i);
         }
         return cc;
     }
 
-    public void forgotMail(String to, String subject, String password) throws MessagingException{
+    public void forgotMail(String to, String subject, String password) throws MessagingException {
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
         helper.setFrom("dupa927468@mailinator.com");

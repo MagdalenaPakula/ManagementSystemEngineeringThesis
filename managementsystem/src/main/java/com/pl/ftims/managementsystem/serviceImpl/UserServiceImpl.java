@@ -60,19 +60,18 @@ public class UserServiceImpl implements UserService {
             } else {
                 return BusinessUtils.getResponseEntity(BusinessConstants.INVALID_DATA, HttpStatus.BAD_REQUEST);
             }
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
-        }return BusinessUtils.getResponseEntity(BusinessConstants.SOMETHING_WENT_WRONG, HttpStatus.BAD_REQUEST);
+        }
+        return BusinessUtils.getResponseEntity(BusinessConstants.SOMETHING_WENT_WRONG, HttpStatus.BAD_REQUEST);
     }
 
-    private boolean validateSingUpMap(Map<String, String> requestMap){
-        if (requestMap.containsKey("name") && requestMap.containsKey("surname")
-                && requestMap.containsKey("email") && requestMap.containsKey("password")) {
-            return true;
-        } else return false;
+    private boolean validateSingUpMap(Map<String, String> requestMap) {
+        return requestMap.containsKey("name") && requestMap.containsKey("surname")
+                && requestMap.containsKey("email") && requestMap.containsKey("password");
     }
 
-    private User getUserFromMap(Map<String, String> requestMap){
+    private User getUserFromMap(Map<String, String> requestMap) {
         User user = new User();
         user.setEmail(requestMap.get("email"));
         user.setName(requestMap.get("name"));
@@ -90,52 +89,52 @@ public class UserServiceImpl implements UserService {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(requestMap.get("email"), requestMap.get("password"))
             );
-            if(authentication.isAuthenticated()){
-                if(customerUsersDetailsService.getUserDetails().getStatus().equalsIgnoreCase("true")){
+            if (authentication.isAuthenticated()) {
+                if (customerUsersDetailsService.getUserDetails().getStatus().equalsIgnoreCase("true")) {
                     return new ResponseEntity<String>("{\"token\":\"" +
                             jwtUtils.generateToken(customerUsersDetailsService.getUserDetails().getEmail(),
                                     customerUsersDetailsService.getUserDetails().getRole()) + "\"}", HttpStatus.OK);
                 }
-            }else {
-                return new ResponseEntity<String>("{\"message\":\""+"Wait for Admin approval."+"\"}", HttpStatus.BAD_REQUEST);
+            } else {
+                return new ResponseEntity<String>("{\"message\":\"" + "Wait for Admin approval." + "\"}", HttpStatus.BAD_REQUEST);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
             return BusinessUtils.getResponseEntity(BusinessConstants.SOMETHING_WENT_WRONG, HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<String>("{\"message\":\""+"Bad credentials."+"\"}", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<String>("{\"message\":\"" + "Bad credentials." + "\"}", HttpStatus.BAD_REQUEST);
     }
 
     @Override
     public ResponseEntity<List<UserWrapper>> getAllUsers() {
-        try{
-            if(jwtFilter.isUser()){
-                return new ResponseEntity<>(userDao.getAllUsers(),HttpStatus.OK);
-            }else{
+        try {
+            if (jwtFilter.isUser()) {
+                return new ResponseEntity<>(userDao.getAllUsers(), HttpStatus.OK);
+            } else {
                 return new ResponseEntity<>(new ArrayList<>(), HttpStatus.UNAUTHORIZED);
             }
-        }catch(Exception exception){
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
-            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
     public ResponseEntity<String> update(Map<String, String> requestMap) {
-        try{
-            if(jwtFilter.isAdmin()){
+        try {
+            if (jwtFilter.isAdmin()) {
                 Optional<User> optional = userDao.findById(Integer.parseInt(requestMap.get("id")));
-                if(!optional.isEmpty()){
+                if (!optional.isEmpty()) {
                     userDao.updateStatus(requestMap.get("status"), Integer.parseInt(requestMap.get("id")));
                     sendMailToAllAdmin(requestMap.get("status"), optional.get().getEmail(), userDao.getAllAdmin());
                     return BusinessUtils.getResponseEntity("User Status updated", HttpStatus.OK);
-                }else{
+                } else {
                     BusinessUtils.getResponseEntity("ID doesnt exist in the database", HttpStatus.OK);
                 }
-            }else {
+            } else {
                 return BusinessUtils.getResponseEntity(BusinessConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
             }
-        }catch (Exception exception){
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
         return BusinessUtils.getResponseEntity(BusinessConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -143,10 +142,10 @@ public class UserServiceImpl implements UserService {
 
     private void sendMailToAllAdmin(String status, String user, List<String> allAdmin) {
         allAdmin.remove(jwtFilter.getCurrentUser());
-        if(status!=null && status.equalsIgnoreCase("true")){
-            emailUtils.sendSimpleMessage(jwtFilter.getCurrentUser(),"Account Approved", "USER:-"+user+"\n is approved by \nADMIN:-"+jwtFilter.getCurrentUser(), allAdmin);
-        }else{
-            emailUtils.sendSimpleMessage(jwtFilter.getCurrentUser(),"Account Disabled", "USER:-"+user+"\n is disabled by \nADMIN:-"+jwtFilter.getCurrentUser(), allAdmin);
+        if (status != null && status.equalsIgnoreCase("true")) {
+            emailUtils.sendSimpleMessage(jwtFilter.getCurrentUser(), "Account Approved", "USER:-" + user + "\n is approved by \nADMIN:-" + jwtFilter.getCurrentUser(), allAdmin);
+        } else {
+            emailUtils.sendSimpleMessage(jwtFilter.getCurrentUser(), "Account Disabled", "USER:-" + user + "\n is disabled by \nADMIN:-" + jwtFilter.getCurrentUser(), allAdmin);
         }
     }
 
@@ -157,18 +156,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntity<String> changePassword(Map<String, String> requestMap) {
-        try{
+        try {
             User userObj = userDao.findByEmail(jwtFilter.getCurrentUser());
-            if(!userObj.equals(null)){
-                if(userObj.getPassword().equals(requestMap.get("oldPassword"))){
+            if (!userObj.equals(null)) {
+                if (userObj.getPassword().equals(requestMap.get("oldPassword"))) {
                     userObj.setPassword(requestMap.get("newPassword"));
                     userDao.save(userObj);
-                    return BusinessUtils.getResponseEntity("Password updated successfully",HttpStatus.OK);
+                    return BusinessUtils.getResponseEntity("Password updated successfully", HttpStatus.OK);
                 }
                 return BusinessUtils.getResponseEntity("Incorrect Old Password", HttpStatus.BAD_REQUEST);
             }
             return BusinessUtils.getResponseEntity(BusinessConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
-        }catch (Exception exception){
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
         return BusinessUtils.getResponseEntity(BusinessConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -176,13 +175,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntity<String> forgotPassword(Map<String, String> requestMap) {
-        try{
+        try {
             User user = userDao.findByEmail(requestMap.get("email"));
-            if(!Objects.isNull(user) && !Strings.isNullOrEmpty(user.getEmail()));
+            if (!Objects.isNull(user) && !Strings.isNullOrEmpty(user.getEmail())) ;
             emailUtils.forgotMail(user.getEmail(), "Credentials by Business", user.getPassword());
 
             return BusinessUtils.getResponseEntity("Check your email for Credentials", HttpStatus.OK);
-        }catch (Exception exception){
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
         return BusinessUtils.getResponseEntity(BusinessConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);

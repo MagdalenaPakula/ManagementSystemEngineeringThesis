@@ -1,7 +1,6 @@
 package com.pl.ftims.managementsystem.dao;
 
 import com.pl.ftims.managementsystem.POJO.User;
-
 import com.pl.ftims.managementsystem.wrapper.UserWrapper;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

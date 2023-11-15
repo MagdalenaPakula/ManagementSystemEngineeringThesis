@@ -30,16 +30,16 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public ResponseEntity<String> addNewCategory(Map<String, String> requestMap) {
-        try{
-            if(jwtFilter.isAdmin()){
-                if(validateCategoryMap(requestMap, false)){
-                    categoryDao.save(getCategoryFromMap(requestMap,false));
+        try {
+            if (jwtFilter.isAdmin()) {
+                if (validateCategoryMap(requestMap, false)) {
+                    categoryDao.save(getCategoryFromMap(requestMap, false));
                     return BusinessUtils.getResponseEntity("Category Added Successfully", HttpStatus.OK);
                 }
-            }else{
+            } else {
                 return BusinessUtils.getResponseEntity(BusinessConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
             }
-        }catch(Exception exception){
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
         return BusinessUtils.getResponseEntity(BusinessConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -47,14 +47,14 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public ResponseEntity<List<Category>> getAllCategory(String filterValue) {
-        try{
-            if(!Strings.isNullOrEmpty(filterValue) && filterValue.equalsIgnoreCase("true")){
+        try {
+            if (!Strings.isNullOrEmpty(filterValue) && filterValue.equalsIgnoreCase("true")) {
                 log.info("Inside if");
                 return new ResponseEntity<List<Category>>(categoryDao.getAllCategory(), HttpStatus.OK);
             }
             return new ResponseEntity<>(categoryDao.findAll(), HttpStatus.OK);
 
-        }catch(Exception exception){
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
         return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -62,41 +62,39 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public ResponseEntity<String> updateCategory(Map<String, String> requestMap) {
-        try{
-            if(jwtFilter.isAdmin()){
-                if(validateCategoryMap(requestMap, true)){
+        try {
+            if (jwtFilter.isAdmin()) {
+                if (validateCategoryMap(requestMap, true)) {
                     Optional optional = categoryDao.findById(Integer.parseInt(requestMap.get("id")));
-                    if(!optional.isEmpty()){
-                        categoryDao.save(getCategoryFromMap(requestMap,true));
+                    if (!optional.isEmpty()) {
+                        categoryDao.save(getCategoryFromMap(requestMap, true));
                         return BusinessUtils.getResponseEntity("Category updated successfully", HttpStatus.OK);
-                    }else{
+                    } else {
                         return BusinessUtils.getResponseEntity("Category ID does not exist", HttpStatus.OK);
                     }
                 }
                 return BusinessUtils.getResponseEntity(BusinessConstants.INVALID_DATA, HttpStatus.BAD_REQUEST);
-            }else{
+            } else {
                 return BusinessUtils.getResponseEntity(BusinessConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
             }
-        }catch(Exception exception){
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
         return BusinessUtils.getResponseEntity(BusinessConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    public boolean validateCategoryMap(Map<String, String> requestMap, boolean validateId){
-        if(requestMap.containsKey("name")){
-            if(requestMap.containsKey("id") && validateId){
+    public boolean validateCategoryMap(Map<String, String> requestMap, boolean validateId) {
+        if (requestMap.containsKey("name")) {
+            if (requestMap.containsKey("id") && validateId) {
                 return true;
-            }else if (!validateId) {
-                return true;
-            }
+            } else return !validateId;
         }
         return false;
     }
 
-    private Category getCategoryFromMap(Map<String, String> requestMap, Boolean isAdded){
+    private Category getCategoryFromMap(Map<String, String> requestMap, Boolean isAdded) {
         Category category = new Category();
-        if(isAdded){
+        if (isAdded) {
             category.setId(Integer.parseInt(requestMap.get("id")));
         }
         category.setName(requestMap.get("name"));

@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean //what is bean? without it will give us errors
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
 
@@ -42,20 +42,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception{
-       http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
-               .and()
-               .csrf().disable()
-               .authorizeRequests()
-               .antMatchers("/user/login", "/user/signup", "/user/forgotPassword")
-               .permitAll()
-               .anyRequest()
-               .authenticated()
-               .and().exceptionHandling()
-               .and()
-               .sessionManagement()
-               .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    protected void configure(HttpSecurity http) throws Exception {
+        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
+                .and()
+                .csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/user/login", "/user/signup", "/user/forgotPassword")
+                .permitAll()
+                .anyRequest()
+                .authenticated()
+                .and().exceptionHandling()
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-       http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }

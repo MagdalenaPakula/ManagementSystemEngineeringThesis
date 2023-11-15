@@ -1,6 +1,5 @@
 package com.pl.ftims.managementsystem.service;
 
-import com.pl.ftims.managementsystem.POJO.Product;
 import com.pl.ftims.managementsystem.wrapper.ProductWrapper;
 import org.springframework.http.ResponseEntity;
 
