@@ -19,10 +19,6 @@ public class ProductWrapper {
 
     private String categoryName;
 
-    public ProductWrapper() {
-
-    }
-
     public ProductWrapper(Integer id, String name, String description, Float price, String status, Integer categoryId, String categoryName) {
         this.id = id;
         this.name = name;

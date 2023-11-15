@@ -30,8 +30,7 @@ public class BusinessUtils {
     }
 
     public static JSONArray getJsonArrayFromString(String data) throws JSONException {
-        JSONArray jsonArray = new JSONArray(data);
-        return jsonArray;
+        return new JSONArray(data);
     }
 
     public static Map<String, Object> getMapFromJson(String data){

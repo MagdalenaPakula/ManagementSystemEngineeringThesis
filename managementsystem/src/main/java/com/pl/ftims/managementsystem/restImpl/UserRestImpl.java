@@ -1,6 +1,5 @@
 package com.pl.ftims.managementsystem.restImpl;
 
-import com.pl.ftims.managementsystem.POJO.User;
 import com.pl.ftims.managementsystem.constants.BusinessConstants;
 import com.pl.ftims.managementsystem.rest.UserRest;
 import com.pl.ftims.managementsystem.service.UserService;

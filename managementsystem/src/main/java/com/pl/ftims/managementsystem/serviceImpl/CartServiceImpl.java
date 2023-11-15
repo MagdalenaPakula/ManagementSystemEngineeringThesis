@@ -20,6 +20,8 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -161,5 +163,16 @@ public class CartServiceImpl implements CartService {
                 requestMap.containsKey("paymentMethod") &&
                 requestMap.containsKey("productDetails") &&
                 requestMap.containsKey("totalAmount");
+    }
+
+    @Override
+    public ResponseEntity<List<Cart>> getBills() {
+        List<Cart> list = new ArrayList<>();
+        if(jwtFilter.isAdmin()){
+            list = cartDao.getAllBills();
+        }else{
+            list = cartDao.getBillByUserName(jwtFilter.getCurrentUser());
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 }

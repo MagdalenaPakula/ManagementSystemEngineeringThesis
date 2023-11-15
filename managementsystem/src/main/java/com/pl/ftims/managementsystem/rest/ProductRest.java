@@ -11,19 +11,19 @@ import java.util.Map;
 public interface ProductRest {
 
     @PostMapping(path = "/add")
-    ResponseEntity<String> addNewProduct(@RequestBody(required = true) Map<String,String> requestMap);
+    ResponseEntity<String> addNewProduct(@RequestBody Map<String,String> requestMap);
 
     @GetMapping(path = "/get")
     ResponseEntity<List<ProductWrapper>> getAllProducts();
 
     @PostMapping(path = "/update")
-    ResponseEntity<String> updateProduct(@RequestBody(required = true) Map<String,String> requestMap);
+    ResponseEntity<String> updateProduct(@RequestBody Map<String,String> requestMap);
 
     @PostMapping(path = "/delete/{id}")
     ResponseEntity<String> deleteProduct(@PathVariable Integer id);
 
     @PostMapping(path = "/updateStatus")
-    ResponseEntity<String> updateStatus(@RequestBody(required = true) Map<String,String> requestMap);
+    ResponseEntity<String> updateStatus(@RequestBody Map<String,String> requestMap);
 
     @GetMapping(path = "/getProductByCategory/{id}")
     ResponseEntity<List<ProductWrapper>> getProductByCategory(@PathVariable Integer id);

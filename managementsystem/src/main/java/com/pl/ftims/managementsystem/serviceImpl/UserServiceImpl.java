@@ -177,9 +177,7 @@ public class UserServiceImpl implements UserService {
     public ResponseEntity<String> forgotPassword(Map<String, String> requestMap) {
         try {
             User user = userDao.findByEmail(requestMap.get("email"));
-            if (!Objects.isNull(user) && !Strings.isNullOrEmpty(user.getEmail())) ;
-            emailUtils.forgotMail(user.getEmail(), "Credentials by Business", user.getPassword());
-
+            if (!Objects.isNull(user) && !Strings.isNullOrEmpty(user.getEmail())) emailUtils.forgotMail(user.getEmail(), "Credentials by Business", user.getPassword());
             return BusinessUtils.getResponseEntity("Check your email for Credentials", HttpStatus.OK);
         } catch (Exception exception) {
             exception.printStackTrace();

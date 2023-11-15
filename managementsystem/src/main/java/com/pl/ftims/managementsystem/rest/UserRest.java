@@ -14,24 +14,24 @@ import java.util.Map;
 public interface UserRest {
 
     @PostMapping(path = "/signup")
-    public ResponseEntity<String> signUp(@RequestBody(required = true) Map<String, String> requestMap);
+    ResponseEntity<String> signUp(@RequestBody Map<String, String> requestMap);
 
     @PostMapping(path = "/login")
-    public ResponseEntity<String> login(@RequestBody(required = true) Map<String, String> requestMap);
+    ResponseEntity<String> login(@RequestBody Map<String, String> requestMap);
 
     @GetMapping(path = "/get")
-    public ResponseEntity<List<UserWrapper>> getAllUsers();
+    ResponseEntity<List<UserWrapper>> getAllUsers();
 
     @PostMapping(path = "/update")
-    public ResponseEntity<String> update(@RequestBody(required = true) Map<String, String> requestMap);
+    ResponseEntity<String> update(@RequestBody Map<String, String> requestMap);
 
     @GetMapping(path = "/checkToken")
     ResponseEntity<String> checkToken();
 
     @PostMapping(path = "/changePassword")
-    public ResponseEntity<String> changePassword(@RequestBody Map<String, String> requestMap);
+    ResponseEntity<String> changePassword(@RequestBody Map<String, String> requestMap);
 
     @PostMapping(path = "/forgotPassword")
-    public ResponseEntity<String> forgotPassword(@RequestBody Map<String, String> requestMap);
+    ResponseEntity<String> forgotPassword(@RequestBody Map<String, String> requestMap);
 
 }
