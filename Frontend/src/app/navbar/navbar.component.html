@@ -1,1 +1,36 @@
-<p>navbar works!</p>
+<mat-toolbar class="mat-elevation-z3">
+
+  <a mat-button routerLink="home" class="business-management-icon">BUSINESS MANAGEMENT</a>
+
+  <div class="spacer"></div>
+
+  <a mat-button class="menu-item-first-nav" routerLink="AI">GENERATE YOUR OWN DIET WITH AI</a>
+  <a mat-button class="menu-item-first-nav" routerLink="login">Login</a>
+  <a mat-raised-button class="menu-item-first-nav" routerLink="signup">Sign up</a>
+
+</mat-toolbar>
+
+<mat-toolbar color="primary">
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <span>Drinks</span>
+    </button>
+    <button mat-menu-item>
+      <span>Supplements</span>
+    </button>
+    <button mat-menu-item>
+      <span>Cereals</span>
+    </button>
+  </mat-menu>
+
+  <a mat-button class="menu-item-second-nav" routerLink="drinks">Drinks</a>
+  <a mat-button class="menu-item-second-nav" routerLink="supplements">Supplements</a>
+  <a mat-button class="menu-item-second-nav" routerLink="cereals">Cereals</a>
+  <div class="spacer"></div>
+  <button mat-icon-button>
+    <mat-icon>shopping_basket</mat-icon>
+  </button>
+</mat-toolbar>
