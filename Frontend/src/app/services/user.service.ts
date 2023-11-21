@@ -6,11 +6,17 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
   providedIn: 'root'
 })
 export class UserService {
-  url = environment.apiUrl;
+    private baseUrl = `${environment.apiUrl}/user`;
 
-  constructor(private httpClient:HttpClient) { }
+    constructor(private http: HttpClient) {}
 
-  signup(data:any){
-    return this.httpClient.post(this.url+"/user/signup", data,{headers:new HttpHeaders().set('Content-Type', 'application/json')})
-  }
+    signUp(userData: any) {
+        const url = `${this.baseUrl}/signup`;
+
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+        });
+
+        return this.http.post(url, userData, { headers });
+    }
 }
