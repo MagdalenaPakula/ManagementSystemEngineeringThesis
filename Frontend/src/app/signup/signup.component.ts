@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import {UserService} from "../services/user.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import { UserService } from "../services/user.service";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -10,7 +11,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 export class SignupComponent {
   signupForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private userService: UserService) {
+  constructor(private fb: FormBuilder, private userService: UserService, private router: Router) {
     this.signupForm = this.fb.group({
       name: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]],
       surname: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]],
@@ -32,6 +33,8 @@ export class SignupComponent {
     this.userService.signUp(userData).subscribe(
         (response) => {
           console.log('Successfully signed up:', response);
+          // Navigate to the home page on successful registration
+          this.router.navigate(['/home']);
         },
         (error) => {
           console.error('Error signing up:', error);
