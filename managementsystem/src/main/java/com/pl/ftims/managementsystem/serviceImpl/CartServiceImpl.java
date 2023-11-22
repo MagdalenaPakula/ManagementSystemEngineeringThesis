@@ -1,6 +1,5 @@
 package com.pl.ftims.managementsystem.serviceImpl;
 
-
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -202,7 +201,6 @@ public class CartServiceImpl implements CartService {
         }
         return null;
     }
-//need a comment
     @Override
     public ResponseEntity<String> deleteBill(Integer id) {
         try {
