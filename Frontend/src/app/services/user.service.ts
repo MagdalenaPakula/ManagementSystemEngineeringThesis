@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
+
 export class UserService {
 
   private baseUrl = `${environment.apiUrl}/user`;
@@ -30,6 +31,4 @@ export class UserService {
 
     return this.http.post(url, loginData, { headers });
   }
-
-  
 }
