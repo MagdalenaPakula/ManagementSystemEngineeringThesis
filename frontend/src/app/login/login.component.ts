@@ -36,7 +36,7 @@ export class LoginComponent {
         },
         (error) => {
           console.error('Error logging in:', error);
-          this.dialogService.openDialog('Login Status', 'Login failed, try again :)');
+          this.dialogService.openDialog('Login Status', 'Login failed, try again');
         }
     );
   }
