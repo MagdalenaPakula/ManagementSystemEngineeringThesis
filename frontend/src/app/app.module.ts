@@ -16,6 +16,8 @@ import { HttpClientModule } from "@angular/common/http";
 import { LoginComponent } from './login/login.component';
 import { DialogComponent } from './dialog/dialog.component';
 import {MatDialogClose} from "@angular/material/dialog";
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ProductComponent } from './product/product.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import {MatDialogClose} from "@angular/material/dialog";
     HomeComponent,
     SignupComponent,
     LoginComponent,
-    DialogComponent
+    DialogComponent,
+    DashboardComponent,
+    ProductComponent
   ],
   imports: [
     BrowserModule,
