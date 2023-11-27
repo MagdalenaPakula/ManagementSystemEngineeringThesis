@@ -17,6 +17,12 @@ export class SnackbarService {
         panelClass:['']
       })
     }else{
+      this.snackBar.open(message,'',{
+        horizontalPosition:'center',
+        verticalPosition:'top',
+        duration:2000,
+        panelClass:['green-snackbar']
+      })
 
     }
   }

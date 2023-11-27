@@ -99,3 +99,28 @@ h2{
   background-color: #ffffff;
   color: #444444;
 }
+
+.forgot-password-link-container {
+  margin-left: 800px;
+  margin-top: 40px;
+  color: #ffffff;
+  font-size: 16px;
+}
+
+.forgot-button{
+  background-color: #ff8c21;
+  color: #ffffff;
+  text-decoration: none;
+  margin-left: 10px;
+  margin-right: 150px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s ease, color 0.2s ease; /* Reduced transition duration with ease effect */
+}
+.forgot-button:hover{
+  background-color: #ffffff;
+  color: #444444;
+}

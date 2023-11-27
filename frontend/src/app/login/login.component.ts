@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../services/user.service";
 import {Router} from "@angular/router";
 import {DialogService} from "../services/dialog.service";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {ForgotPasswordComponent} from "../forgot-password/forgot-password.component";
 
 @Component({
   selector: 'app-login',
@@ -13,7 +15,7 @@ export class LoginComponent {
 
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private userService: UserService, private router: Router, private dialogService: DialogService) {
+  constructor(private fb: FormBuilder, private userService: UserService, private router: Router, private dialogService: DialogService, private dialog:MatDialog) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password:['', [Validators.required]]
@@ -40,5 +42,9 @@ export class LoginComponent {
         }
     );
   }
-
+  handleForgotPasswordAction(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = "600px";
+    this.dialog.open(ForgotPasswordComponent, dialogConfig);
+  }
 }

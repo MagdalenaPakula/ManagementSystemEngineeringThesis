@@ -15,9 +15,22 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { LoginComponent } from './login/login.component';
 import { DialogComponent } from './dialog/dialog.component';
-import {MatDialogClose} from "@angular/material/dialog";
+import {MatDialogActions, MatDialogClose, MatDialogContent} from "@angular/material/dialog";
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProductComponent } from './product/product.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import {NgxUiLoaderConfig, NgxUiLoaderModule, SPINNER} from "ngx-ui-loader";
+import {MatInputModule} from "@angular/material/input";
+
+const ngxUiLoaderConfig: NgxUiLoaderConfig = {
+  text:"Loading..",
+  textColor:"#FFFFFF",
+  textPosition:"center-center",
+  bgsColor:"#ff8c21",
+  fgsType:SPINNER.squareJellyBox,
+  fgsSize:100,
+  hasProgressBar:false
+}
 
 @NgModule({
   declarations: [
@@ -28,7 +41,8 @@ import { ProductComponent } from './product/product.component';
     LoginComponent,
     DialogComponent,
     DashboardComponent,
-    ProductComponent
+    ProductComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +55,11 @@ import { ProductComponent } from './product/product.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MatDialogClose
+    MatDialogClose,
+    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
+    MatDialogContent,
+    MatInputModule,
+    MatDialogActions
   ],
   providers: [],
   bootstrap: [AppComponent]

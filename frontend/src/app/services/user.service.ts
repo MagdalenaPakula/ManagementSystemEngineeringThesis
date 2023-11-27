@@ -31,4 +31,14 @@ export class UserService {
 
     return this.http.post(url, loginData, { headers });
   }
+
+  forgotPassword(data:any){
+    const url = `${this.baseUrl}/forgotPassword`;
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return this.http.post(url, data, { headers });
+  }
 }

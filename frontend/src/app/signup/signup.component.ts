@@ -3,6 +3,7 @@ import { UserService } from "../services/user.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from '@angular/router';
 import {DialogService} from "../services/dialog.service";
+import {GlobalConstants} from "../global-constants";
 
 @Component({
   selector: 'app-signup',
@@ -14,12 +15,12 @@ export class SignupComponent {
 
   constructor(private fb: FormBuilder, private userService: UserService, private router: Router, private dialogService: DialogService) {
     this.signupForm = this.fb.group({
-      name: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]],
-      surname: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]],
-      email: ['', [Validators.required, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')]],
+      name: ['', [Validators.required, Validators.pattern(GlobalConstants.nameRegex)]],
+      surname: ['', [Validators.required, Validators.pattern(GlobalConstants.nameRegex)]],
+      email: ['', [Validators.required, Validators.pattern(GlobalConstants.emailRegex)]],
       password: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]],
-      contactNumber: ['', [Validators.pattern('^[0-9]{10,10}$')]],
+      contactNumber: ['', [Validators.pattern(GlobalConstants.numberRegex)]],
     });
   }
 
