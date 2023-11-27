@@ -7,7 +7,7 @@ import {DashboardComponent} from "./dashboard/dashboard.component";
 import {ProductComponent} from "./product/product.component";
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' }, // Default route redirects to /home
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, // Default route redirects to /dashboard
   { path: 'home', component: HomeComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
