@@ -12,7 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { SignupComponent } from "./signup/signup.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HttpClientModule } from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { LoginComponent } from './login/login.component';
 import { DialogComponent } from './dialog/dialog.component';
 import {MatDialogActions, MatDialogClose, MatDialogContent} from "@angular/material/dialog";
@@ -21,6 +21,10 @@ import { ProductComponent } from './product/product.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import {NgxUiLoaderConfig, NgxUiLoaderModule, SPINNER} from "ngx-ui-loader";
 import {MatInputModule} from "@angular/material/input";
+import {TokenInterceptorInterceptor} from "./services/token-interceptor.interceptor";
+import {MatCardModule} from "@angular/material/card";
+
+
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   text:"Loading..",
@@ -59,9 +63,10 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
     MatDialogContent,
     MatInputModule,
-    MatDialogActions
+    MatDialogActions,
+    MatCardModule
   ],
-  providers: [],
+  providers: [HttpClientModule, {provide: HTTP_INTERCEPTORS, useClass:TokenInterceptorInterceptor,multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
