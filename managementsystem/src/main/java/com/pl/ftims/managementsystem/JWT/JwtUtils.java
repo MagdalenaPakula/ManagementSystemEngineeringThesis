@@ -36,7 +36,10 @@ public class JwtUtils {
     }
 
     private Boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
+        boolean expired = extractExpiration(token).before(new Date());
+        System.out.println("Is Token Expired? " + expired);
+
+        return expired;
     }
 
     public String generateToken(String username, String role) {
@@ -57,6 +60,12 @@ public class JwtUtils {
 
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = extractUserName(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        System.out.println("Validating Token for User: " + username);
+
+        boolean isValid = (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        System.out.println("Is Token Valid? " + isValid);
+
+        return isValid;
     }
+
 }

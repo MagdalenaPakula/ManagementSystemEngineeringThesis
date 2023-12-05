@@ -12,7 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { SignupComponent } from "./signup/signup.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HttpClientModule } from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { LoginComponent } from './login/login.component';
 import { DialogComponent } from './dialog/dialog.component';
 import {MatDialogActions, MatDialogClose, MatDialogContent} from "@angular/material/dialog";
@@ -22,6 +22,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import {NgxUiLoaderConfig, NgxUiLoaderModule, SPINNER} from "ngx-ui-loader";
 import {MatInputModule} from "@angular/material/input";
 import { JwtModule } from '@auth0/angular-jwt';
+import {TokenInterceptorInterceptor} from "./services/token-interceptor.interceptor";
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   text:"Loading..",
@@ -69,7 +70,12 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
       },
     }),
   ],
-  providers: [],
+  providers: [
+      {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
