@@ -1,4 +1,3 @@
-// login.component.ts
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { UserService } from "../services/user.service";
@@ -7,6 +6,7 @@ import { DialogService } from "../services/dialog.service";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { ForgotPasswordComponent } from "../forgot-password/forgot-password.component";
 import { JwtHelperService } from '@auth0/angular-jwt';
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -17,7 +17,14 @@ export class LoginComponent {
 
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private userService: UserService, private router: Router, private dialogService: DialogService, private dialog: MatDialog) {
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    private router: Router,
+    private dialogService: DialogService,
+    private dialog: MatDialog,
+    private authService: AuthService
+  ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
@@ -33,32 +40,28 @@ export class LoginComponent {
     const loginData = this.loginForm.value;
 
     this.userService.login(loginData).subscribe(
-        (response: any) => {
-          console.log('Successfully logged in:', response);
-          this.dialogService.openDialog('Login Status', 'Successfully logged in');
+      (response: any) => {
+        console.log('Successfully logged in:', response);
+        this.dialogService.openDialog('Login Status', 'Successfully logged in');
 
-          const token = response.token;
+        const token = response.token;
+        this.authService.setToken(token);
 
-          // decode the token to get user role
-          const decodedToken = this.decodeToken(token);
-          const userRole = decodedToken.role;
+        const userRole = this.authService.getRole();
 
-          if (userRole === 'admin') {
-            this.router.navigate(['/dashboard']);
-          } else if (userRole === 'user') {
-            this.router.navigate(['/home']);
-          }
-        },
-        (error) => {
-          console.error('Error logging in:', error);
-          this.dialogService.openDialog('Login Status', 'Login failed, try again');
+        // localStorage.setItem('token', token);
+
+        if (userRole === 'admin') {
+          this.router.navigate(['/dashboard']);
+        } else if (userRole === 'user') {
+          this.router.navigate(['/home']);
         }
+      },
+      (error) => {
+        console.error('Error logging in:', error);
+        this.dialogService.openDialog('Login Status', 'Login failed, try again');
+      }
     );
-  }
-
-  decodeToken(token: string): any {
-    const jwtHelper = new JwtHelperService();
-    return jwtHelper.decodeToken(token);
   }
 
   handleForgotPasswordAction() {

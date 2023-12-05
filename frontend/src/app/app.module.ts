@@ -21,6 +21,7 @@ import { ProductComponent } from './product/product.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import {NgxUiLoaderConfig, NgxUiLoaderModule, SPINNER} from "ngx-ui-loader";
 import {MatInputModule} from "@angular/material/input";
+import { JwtModule } from '@auth0/angular-jwt';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   text:"Loading..",
@@ -59,7 +60,14 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
     MatDialogContent,
     MatInputModule,
-    MatDialogActions
+    MatDialogActions,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('token');
+        },
+      },
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
