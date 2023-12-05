@@ -4,16 +4,24 @@ import {HomeComponent} from "./home/home.component";
 import {SignupComponent} from "./signup/signup.component";
 import {LoginComponent} from "./login/login.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
-import {ProductComponent} from "./product/product.component";
 import {AuthGuard} from "./services/auth.guard";
+import {ManageCategoryComponent} from "./manage-category/manage-category.component";
+import {DashboardContainerComponent} from "./dashboard-container/dashboard-container.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' }, // Default route redirects to /home
   { path: 'home', component: HomeComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: 'product', component: ProductComponent}
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: '', component: DashboardContainerComponent },
+      { path: 'category', component: ManageCategoryComponent }
+    ]
+  }
 ];
 
 @NgModule({

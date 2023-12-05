@@ -17,12 +17,14 @@ import { LoginComponent } from './login/login.component';
 import { DialogComponent } from './dialog/dialog.component';
 import {MatDialogActions, MatDialogClose, MatDialogContent} from "@angular/material/dialog";
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ProductComponent } from './product/product.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import {NgxUiLoaderConfig, NgxUiLoaderModule, SPINNER} from "ngx-ui-loader";
 import {MatInputModule} from "@angular/material/input";
 import { JwtModule } from '@auth0/angular-jwt';
 import {TokenInterceptorInterceptor} from "./services/token-interceptor.interceptor";
+import { ManageCategoryComponent } from './manage-category/manage-category.component';
+import { AddUpdateCategoryComponent } from './add-update-category/add-update-category.component';
+import { DashboardContainerComponent } from './dashboard-container/dashboard-container.component';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   text:"Loading..",
@@ -43,8 +45,10 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     LoginComponent,
     DialogComponent,
     DashboardComponent,
-    ProductComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    ManageCategoryComponent,
+    AddUpdateCategoryComponent,
+    DashboardContainerComponent
   ],
   imports: [
     BrowserModule,
