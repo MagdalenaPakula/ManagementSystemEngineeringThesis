@@ -35,10 +35,6 @@ describe('TokenInterceptorInterceptor', () => {
         return new Observable(); // Replace with your actual logic
       },
     };
-
-    const modifiedRequest = interceptor.intercept(req, next);
-    // Add your expectations for the modifiedRequest
   });
 
-  // Add more test cases as needed
 });

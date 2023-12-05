@@ -36,19 +36,23 @@ public class JwtUtils {
     }
 
     private Boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
+        boolean expired = extractExpiration(token).before(new Date());
+        System.out.println("Is Token Expired? " + expired);
+
+        return expired;
     }
 
     public String generateToken(String username, String role) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", role);
-        return createToken(claims, username);
+        return createToken(claims, username, role);
     }
 
-    private String createToken(Map<String, Object> claims, String subject) {
+    private String createToken(Map<String, Object> claims, String subject, String role) {
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(subject)
+                .claim("role", role)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
                 .signWith(SignatureAlgorithm.HS256, secret).compact();
@@ -56,6 +60,12 @@ public class JwtUtils {
 
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = extractUserName(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        System.out.println("Validating Token for User: " + username);
+
+        boolean isValid = (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        System.out.println("Is Token Valid? " + isValid);
+
+        return isValid;
     }
+
 }

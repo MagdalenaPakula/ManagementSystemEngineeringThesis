@@ -19,9 +19,11 @@ body{
   border-radius: 50px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: white;
-  width: 500px;
-  margin-right: 300px;
-  margin-left: 50px;
+  //width: 500px;
+  //margin-right: 300px;
+  //margin-left: 50px;
+  width: 80%; /* Adjust width for responsiveness */
+  margin: 50px; /* Adjust margin for spacing */
 }
 
 .login-form-container label {
@@ -42,8 +44,7 @@ body{
 .login-button {
   background-color: #ff8c21;
   color: #ffffff;
-  margin-left: 150px;
-  margin-right: 150px;
+  margin: 10px;
   padding: 10px 20px;
   border: none;
   border-radius: 50px;
@@ -60,8 +61,8 @@ body{
 .logo-container {
   display: flex;
   flex-direction: row;
-  margin-left: 400px;
-  margin-right:100px;
+  margin-left: 300px;
+  margin-right:5%;
 }
 
 h1{
@@ -74,45 +75,19 @@ h2{
   font-size: 80px;
 }
 
-.signup-link-container {
-  margin-left: 800px;
-  margin-top: -160px; /* Add a margin-top to separate the signup link */
-  color: #ffffff;
-  font-size: 16px;
-}
-
-.signup-button {
-  background-color: #ff8c21;
-  color: #ffffff;
-  text-decoration: none;
-  margin-left: 10px;
-  margin-right: 150px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.2s ease, color 0.2s ease; /* Reduced transition duration with ease effect */
-}
-
-.signup-button:hover {
-  background-color: #ffffff;
-  color: #444444;
-}
-
+.signup-link-container,
 .forgot-password-link-container {
-  margin-left: 800px;
-  margin-top: 40px;
+  padding: 20px;
+  margin-left: 50%;
   color: #ffffff;
   font-size: 16px;
+  margin-top:-100px;
 }
 
-.forgot-button{
+.signup-button, .forgot-button {
   background-color: #ff8c21;
   color: #ffffff;
   text-decoration: none;
-  margin-left: 10px;
-  margin-right: 150px;
   padding: 10px 20px;
   border: none;
   border-radius: 50px;
@@ -120,7 +95,10 @@ h2{
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: background-color 0.2s ease, color 0.2s ease; /* Reduced transition duration with ease effect */
 }
-.forgot-button:hover{
+
+.signup-button:hover, .forgot-button:hover {
   background-color: #ffffff;
   color: #444444;
 }
+
+
