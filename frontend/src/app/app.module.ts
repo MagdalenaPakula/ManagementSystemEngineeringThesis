@@ -26,6 +26,7 @@ import { ManageCategoryComponent } from './manage-category/manage-category.compo
 import { DashboardContainerComponent } from './dashboard-container/dashboard-container.component';
 import { ManageProductComponent } from './manage-product/manage-product.component';
 
+
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   text:"Loading..",
   textColor:"#FFFFFF",
