@@ -7,6 +7,7 @@ import {DashboardComponent} from "./dashboard/dashboard.component";
 import {AuthGuard} from "./services/auth.guard";
 import {ManageCategoryComponent} from "./manage-category/manage-category.component";
 import {DashboardContainerComponent} from "./dashboard-container/dashboard-container.component";
+import {ManageProductComponent} from "./manage-product/manage-product.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' }, // Default route redirects to /home
@@ -19,7 +20,9 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: '', component: DashboardContainerComponent },
-      { path: 'category', component: ManageCategoryComponent }
+      { path: 'category', component: ManageCategoryComponent },
+      { path: 'product', component: ManageProductComponent }
+
     ]
   }
 ];

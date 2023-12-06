@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CategoryService} from "../services/category.service";
 import {MatDialog} from "@angular/material/dialog";
-import {AddUpdateCategoryComponent} from "../add-update-category/add-update-category.component";
 
 @Component({
   selector: 'app-manage-category',
@@ -10,6 +9,7 @@ import {AddUpdateCategoryComponent} from "../add-update-category/add-update-cate
 })
 export class ManageCategoryComponent implements OnInit{
   categories: any[] = [];
+  newCategoryName: string = '';
 
   constructor(private categoryService: CategoryService, private dialog: MatDialog) {}
 
@@ -18,22 +18,46 @@ export class ManageCategoryComponent implements OnInit{
   }
 
   loadCategories() {
-    this.categoryService.getAllCategories().subscribe((response) => {
-      this.categories = response;
-    });
+    this.categoryService.getAllCategories().subscribe(
+      (data: any) => {
+        this.categories = data;
+      },
+      (error: any) => {
+        console.error('Error loading categories', error);
+      }
+    );
   }
 
-  openAddUpdateDialog(category?: any) {
-    const dialogRef = this.dialog.open(AddUpdateCategoryComponent, {
-      width: '400px',
-      data: category || null
-    });
+  updateCategory(category: any) {
+    // Implement logic to update the category name
+    category.name = prompt('Enter the new category name:', category.name);
+    if (category.name) {
+      this.categoryService.updateCategory(category).subscribe(
+        (data: any) => {
+          console.log('Category updated successfully', data);
+          this.loadCategories();
+        },
+        (error: any) => {
+          console.error('Error updating category', error);
+        }
+      );
+    }
+  }
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result === 'success') {
-        this.loadCategories();
-      }
-    });
+  addCategory() {
+    if (this.newCategoryName) {
+      const newCategory = { name: this.newCategoryName };
+      this.categoryService.addCategory(newCategory).subscribe(
+        (data: any) => {
+          console.log('Category added successfully', data);
+          this.newCategoryName = '';
+          this.loadCategories();
+        },
+        (error: any) => {
+          console.error('Error adding category', error);
+        }
+      );
+    }
   }
 
 }

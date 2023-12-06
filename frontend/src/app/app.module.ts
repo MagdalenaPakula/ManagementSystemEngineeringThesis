@@ -23,8 +23,8 @@ import {MatInputModule} from "@angular/material/input";
 import { JwtModule } from '@auth0/angular-jwt';
 import {TokenInterceptorInterceptor} from "./services/token-interceptor.interceptor";
 import { ManageCategoryComponent } from './manage-category/manage-category.component';
-import { AddUpdateCategoryComponent } from './add-update-category/add-update-category.component';
 import { DashboardContainerComponent } from './dashboard-container/dashboard-container.component';
+import { ManageProductComponent } from './manage-product/manage-product.component';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   text:"Loading..",
@@ -47,8 +47,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     DashboardComponent,
     ForgotPasswordComponent,
     ManageCategoryComponent,
-    AddUpdateCategoryComponent,
-    DashboardContainerComponent
+    DashboardContainerComponent,
+    ManageProductComponent
   ],
   imports: [
     BrowserModule,
