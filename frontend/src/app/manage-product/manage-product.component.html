@@ -1,0 +1,28 @@
+<div>
+  <h2>Manage Products</h2>
+
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>Category_fk</th>
+      <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let product of products">
+      <td>{{ product.id }}</td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.description }}</td>
+      <td>{{ product.price }}</td>
+      <td>{{ product.category_fk }}</td>
+      <td>{{ product.status }}</td>
+    </tr>
+    </tbody>
+  </table>
+
+
+</div>
