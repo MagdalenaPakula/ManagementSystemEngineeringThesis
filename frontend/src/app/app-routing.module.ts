@@ -8,6 +8,7 @@ import {AuthGuard} from "./services/auth.guard";
 import {ManageCategoryComponent} from "./manage-category/manage-category.component";
 import {DashboardContainerComponent} from "./dashboard-container/dashboard-container.component";
 import {ManageProductComponent} from "./manage-product/manage-product.component";
+import {ManageUserComponent} from "./manage-user/manage-user.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' }, // Default route redirects to /home
@@ -21,8 +22,8 @@ const routes: Routes = [
     children: [
       { path: '', component: DashboardContainerComponent },
       { path: 'category', component: ManageCategoryComponent },
-      { path: 'product', component: ManageProductComponent }
-
+      { path: 'product', component: ManageProductComponent },
+      { path: 'user', component: ManageUserComponent}
     ]
   }
 ];

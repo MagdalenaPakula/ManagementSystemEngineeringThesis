@@ -1,0 +1,33 @@
+<div>
+  <h2>Manage Categories</h2>
+
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Email</th>
+      <th>Name</th>
+      <th>Surname</th>
+      <th>Password</th>
+      <th>Role</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{ user.id }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.name }}</td>
+      <td>{{ user.surname }}</td>
+      <td>{{ user.password }}</td>
+      <td>{{ user.role }}</td>
+      <td>{{ user.status }}</td>
+      <td>
+        <button (click)="updateUser(user)">Update</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>

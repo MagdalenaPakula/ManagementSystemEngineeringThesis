@@ -13,20 +13,20 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  addNewProduct(data: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/add`, data);
-  }
-
   getAllProducts(): Observable<any> {
     return this.http.get(`${this.baseUrl}/get`);
   }
 
-  updateProduct(data: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/update`, data);
+  deleteProduct(id: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/delete/${id}`, null);
   }
 
-  deleteProduct(id: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/delete/{id}`, id);
+  addNewProduct(data: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/add`, data);
+  }
+
+  updateProduct(data: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/update`, data);
   }
 
   updateStatus(data: any): Observable<any> {

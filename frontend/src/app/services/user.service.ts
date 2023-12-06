@@ -47,5 +47,17 @@ export class UserService {
     return this.http.get(this.baseUrl+"/checkToken");
   }
 
+  getAllUsers(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/get`);
+  }
+
+  updateUser(data: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/update`, data);
+  }
+
+
+
+
+
 
 }

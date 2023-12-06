@@ -25,6 +25,7 @@ import {TokenInterceptorInterceptor} from "./services/token-interceptor.intercep
 import { ManageCategoryComponent } from './manage-category/manage-category.component';
 import { DashboardContainerComponent } from './dashboard-container/dashboard-container.component';
 import { ManageProductComponent } from './manage-product/manage-product.component';
+import { ManageUserComponent } from './manage-user/manage-user.component';
 
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
@@ -49,7 +50,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     ForgotPasswordComponent,
     ManageCategoryComponent,
     DashboardContainerComponent,
-    ManageProductComponent
+    ManageProductComponent,
+    ManageUserComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ProductService} from "../services/product.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {DialogService} from "../services/dialog.service";
 
 @Component({
   selector: 'app-manage-product',
@@ -8,7 +10,16 @@ import {ProductService} from "../services/product.service";
 })
 export class ManageProductComponent implements OnInit {
   products: any[] = [];
-  constructor(private productService: ProductService) {
+  productForm: FormGroup;
+
+
+  constructor(private productService: ProductService, private fb: FormBuilder, private dialogService: DialogService) {
+    this.productForm = this.fb.group({
+      name: ['', Validators.required],
+      categoryId: ['', Validators.required],
+      description: ['', Validators.required],
+      price: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]]
+    });
   }
 
   ngOnInit() {
@@ -25,8 +36,57 @@ export class ManageProductComponent implements OnInit {
       }
     );
   }
+  deleteProduct(id: any) {
+    this.productService.deleteProduct(id).subscribe(
+      (data: any) => {
+        // Handle success, maybe show a success message
+        console.log('Product deleted successfully');
+        this.loadProducts(); // Refresh the product list
+      },
+      (error: any) => {
+        console.error('Error deleting product', error);
+      }
+    );
+  }
 
 
+  addNewProduct(){
+    if (this.productForm.valid) {
+      const newProductData = this.productForm.value;
+
+      this.productService.addNewProduct(newProductData).subscribe(
+        (data: any) => {
+          console.log('Product added successfully');
+          this.loadProducts(); // Refresh the product list
+          this.productForm.reset(); // Reset the form after adding a product
+        },
+        (error: any) => {
+          console.error('Error adding product', error);
+        }
+      );
+    }
+  }
+
+  updateProduct(product: any) {
+    // Prompt the user for new values (you can customize this based on your needs)
+    product.name = prompt('Enter the new product name:', product.name);
+    product.categoryId = prompt('Enter the new category ID:', product.categoryId);
+    product.description = prompt('Enter the new description:', product.description);
+    product.price = prompt('Enter the new price:', product.price);
+
+    if (product.name  && product.categoryId  &&
+      product.description  && product.price ) {
+      this.productService.updateProduct(product).subscribe(
+        (data: any) => {
+          console.log('Product updated successfully', data);
+          this.loadProducts(); // Refresh the product list
+        },
+        (error: any) => {
+          console.error('Error updating product', error);
+        }
+      );
+    }
+  }
 
 }
 
