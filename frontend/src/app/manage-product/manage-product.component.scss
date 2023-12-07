@@ -1,82 +1,82 @@
-/* Add this to your existing styles or create a new styles file */
-
-.product-management {
-  text-align: center;
-}
-
-.product-management h2 {
-  color: #444444;
-  font-size: 24px;
-}
-
-.product-management form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 20px;
-}
-
-.product-management label {
-  margin-bottom: 8px;
-  color: #444444;
-}
-
-.product-management input,
-.product-management textarea {
-  padding: 8px;
-  width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-bottom: 16px;
-}
-
-.product-management button {
-  background-color: #5bc0de; /* Bootstrap's info color */
-  color: #ffffff;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.product-management button:hover {
-  background-color: #46b8da; /* Darker shade on hover */
-}
-
-.product-management table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-.product-management th,
-.product-management td {
-  border: 1px solid #555555; /* Visible borders */
-  padding: 10px;
-}
-
-.product-management th {
-  background-color: #555555;
-  color: #ffffff;
-}
-
-.product-management tbody tr:hover {
-  background-color: #f0f0f0;
-}
-
-.product-management button.delete-button {
-  background-color: #d9534f; /* Bootstrap's danger color */
-}
-
-.product-management button.delete-button:hover {
-  background-color: #c9302c; /* Darker shade on hover */
-}
-
-.product-management button.update-button {
-  background-color: #5bc0de; /* Bootstrap's info color */
-}
-
-.product-management button.update-button:hover {
-  background-color: #46b8da; /* Darker shade on hover */
-}
+///* Add this to your existing styles or create a new styles file */
+//
+//.product-management {
+//  text-align: center;
+//}
+//
+//.product-management h2 {
+//  color: #444444;
+//  font-size: 24px;
+//}
+//
+//.product-management form {
+//  display: flex;
+//  flex-direction: column;
+//  align-items: center;
+//  margin-top: 20px;
+//}
+//
+//.product-management label {
+//  margin-bottom: 8px;
+//  color: #444444;
+//}
+//
+//.product-management input,
+//.product-management textarea {
+//  padding: 8px;
+//  width: 100%;
+//  border: 1px solid #ccc;
+//  border-radius: 5px;
+//  margin-bottom: 16px;
+//}
+//
+//.product-management button {
+//  background-color: #5bc0de; /* Bootstrap's info color */
+//  color: #ffffff;
+//  padding: 8px 16px;
+//  border: none;
+//  border-radius: 5px;
+//  cursor: pointer;
+//  margin-top: 10px;
+//}
+//
+//.product-management button:hover {
+//  background-color: #46b8da; /* Darker shade on hover */
+//}
+//
+//.product-management table {
+//  width: 100%;
+//  border-collapse: collapse;
+//  margin-top: 20px;
+//}
+//
+//.product-management th,
+//.product-management td {
+//  border: 1px solid #555555; /* Visible borders */
+//  padding: 10px;
+//}
+//
+//.product-management th {
+//  background-color: #555555;
+//  color: #ffffff;
+//}
+//
+//.product-management tbody tr:hover {
+//  background-color: #f0f0f0;
+//}
+//
+//.product-management button.delete-button {
+//  background-color: #d9534f; /* Bootstrap's danger color */
+//}
+//
+//.product-management button.delete-button:hover {
+//  background-color: #c9302c; /* Darker shade on hover */
+//}
+//
+//.product-management button.update-button {
+//  background-color: #5bc0de; /* Bootstrap's info color */
+//}
+//
+//.product-management button.update-button:hover {
+//  background-color: #46b8da; /* Darker shade on hover */
+//}

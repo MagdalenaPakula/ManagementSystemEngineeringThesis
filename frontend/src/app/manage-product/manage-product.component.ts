@@ -11,6 +11,8 @@ import {DialogService} from "../services/dialog.service";
 export class ManageProductComponent implements OnInit {
   products: any[] = [];
   productForm: FormGroup;
+  categoryId: number | undefined; // Add categoryId variable
+  productId: number | undefined;  // Add productId variable
 
 
   constructor(private productService: ProductService, private fb: FormBuilder, private dialogService: DialogService) {
@@ -86,6 +88,35 @@ export class ManageProductComponent implements OnInit {
         }
       );
     }
+  }
+
+  // Add new methods for filtering products
+  filterByCategory() {
+    if (this.categoryId !== undefined) {
+      this.productService.getProductByCategory(this.categoryId).subscribe(
+        (data: any) => {
+          this.products = data;
+        },
+        (error: any) => {
+          console.error('Error filtering products by category', error);
+        }
+      );
+    }
+  }
+
+  filterById(productId: number) {
+    this.productService.getProductById(productId).subscribe(
+      (data: any) => {
+        this.products = data;
+      },
+      (error: any) => {
+        console.error('Error filtering products by ID', error);
+      }
+    );
+  }
+
+  resetFilters() {
+    this.loadProducts(); // Reset by fetching all products
   }
 
 }

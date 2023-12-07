@@ -1,5 +1,16 @@
 <div class="product-management">
   <h2>Manage Products</h2>
+  <!-- Add filtering options in your HTML template -->
+  <div>
+    <!-- Filter by Category -->
+    <!-- Filter by Category -->
+    <label for="categoryId">Filter by Category:</label>
+    <input type="number" id="categoryIdFilter" [(ngModel)]="categoryId" />
+    <button (click)="filterByCategory()">Filter</button>
+
+    <!-- Reset Filters -->
+    <button (click)="resetFilters()">Reset Filters</button>
+  </div>
 
   <form [formGroup]="productForm">
     <label for="name">Name:</label>
