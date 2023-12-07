@@ -172,6 +172,27 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public ResponseEntity<String> deleteUser(Integer id) {
+        try {
+            if (jwtFilter.isAdmin()) {
+                Optional<User> optional = userDao.findById(id);
+                if (optional.isPresent()) {
+                    userDao.deleteById(id);
+                    return BusinessUtils.getResponseEntity("User deleted successfully", HttpStatus.OK);
+                } else {
+                    return BusinessUtils.getResponseEntity("User not found in the database", HttpStatus.NOT_FOUND);
+                }
+            } else {
+                return BusinessUtils.getResponseEntity(BusinessConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return BusinessUtils.getResponseEntity(BusinessConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+
 
     private void sendMailToAllAdmin(String status, String user, List<String> allAdmin) {
         allAdmin.remove(jwtFilter.getCurrentUser());

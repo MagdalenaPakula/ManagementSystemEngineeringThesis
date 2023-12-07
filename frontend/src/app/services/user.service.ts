@@ -71,9 +71,8 @@ export class UserService {
     return this.http.post(`${this.baseUrl}/update`, data);
   }
 
-
-
-
-
-
+  deleteUser(id: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/delete/${id}`, null);
+  }
+  
 }
