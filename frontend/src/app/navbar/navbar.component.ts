@@ -14,8 +14,10 @@ export class NavbarComponent {
   logout() {
     // Call the logout method from your AuthService or do any other cleanup
     this.authService.logout();
-
-    // Navigate to the login page
-    this.router.navigate(['/login']);
   }
+
+  get isLoggedIn() {
+    return this.authService.isLoggedIn;
+  }
+
 }

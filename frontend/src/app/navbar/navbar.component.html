@@ -1,12 +1,24 @@
 <mat-toolbar class="mat-elevation-z3">
 
-  <a mat-button routerLink="dashboard" class="business-management-icon">BUSINESS MANAGEMENT</a>
+  <a mat-button routerLink="home" class="business-management-icon">BUSINESS MANAGEMENT</a>
 
   <div class="spacer"></div>
-  <a mat-button class="menu-item-first-nav" (click)="logout()">LogOut</a>
+
+<!--  <a mat-button class="menu-item-first-nav" (click)="logout()">LogOut</a>-->
   <a mat-button class="menu-item-first-nav" routerLink="AI">GENERATE YOUR OWN DIET WITH AI</a>
-  <a mat-button class="menu-item-first-nav" routerLink="login">Login</a>
-  <a mat-raised-button class="menu-item-first-nav" routerLink="signup">Sign up</a>
+<!--  <a mat-button class="menu-item-first-nav" routerLink="login">Login</a>-->
+<!--  <a mat-raised-button class="menu-item-first-nav" routerLink="signup">Sign up</a>-->
+  <div class="user-menu">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>person</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item *ngIf="!isLoggedIn" routerLink="login">Login</button>
+      <button mat-menu-item *ngIf="!isLoggedIn" routerLink="signup">Sign Up</button>
+      <button mat-menu-item *ngIf="isLoggedIn">My Account</button>
+      <button mat-menu-item *ngIf="isLoggedIn" (click)="logout()">Logout</button>
+    </mat-menu>
+  </div>
 
 </mat-toolbar>
 

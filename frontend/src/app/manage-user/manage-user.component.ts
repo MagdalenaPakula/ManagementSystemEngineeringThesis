@@ -28,10 +28,26 @@ export class ManageUserComponent implements OnInit{
   }
 
   updateUser(user: any) {
-    user.name = prompt('Enter the new username:', user.name);
-    user.email = prompt('Enter the new email:', user.email);
-    if (user.username && user.email) {
-      this.userService.updateUser(user).subscribe(
+    const newName = prompt('Enter the new username:', user.name);
+    const newSurname = prompt('Enter the new surname:', user.surname);
+    const newEmail = prompt('Enter the new email:', user.email);
+    const newPassword = prompt('Enter the new password:', user.password);
+    const newStatus = prompt('Enter the new status:', user.status);
+    const newRole = prompt('Enter the new role:', user.role);
+
+    if (newName && newSurname && newEmail && newPassword && newStatus && newRole) {
+      // Create an object with the updated values
+      const updatedUser = {
+        ...user,
+        name: newName,
+        surname: newSurname,
+        email: newEmail,
+        password: newPassword,
+        status: newStatus,
+        role: newRole
+      };
+
+      this.userService.updateUser(updatedUser).subscribe(
         (data: any) => {
           console.log('User updated successfully', data);
           this.loadUsers(); // Refresh the user list
