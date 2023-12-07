@@ -31,13 +31,17 @@ export class ChangePasswordComponent implements OnInit {
     })
   }
 
-  // validateSubmit() {
-  //   if (this.changePasswordForm.invalid || this.changePasswordForm.get('newPassword')!.value !== this.changePasswordForm.get('confirmPassword')!.value) {
-  //     console.error('Invalid form or password and confirm password do not match');
-  //     return;
-  //   }
-  // }
+  validateSubmit() {
+    return this.changePasswordForm.valid && this.changePasswordForm.get('newPassword').value === this.changePasswordForm.get('confirmPassword').value;
+  }
+
   handlePasswordChangeSubmit() {
+    if (!this.validateSubmit()) {
+      const errorMessage = 'Password and Confirm password do not match - cannot change';
+      console.error(errorMessage);
+      this.snackbarService.openSnackBar(errorMessage, GlobalConstants.errorek);
+      return;
+    }
 
     this.ngxService.start();
     var formData = this.changePasswordForm.value;
