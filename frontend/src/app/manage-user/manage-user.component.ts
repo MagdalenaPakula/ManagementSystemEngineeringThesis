@@ -27,6 +27,18 @@ export class ManageUserComponent implements OnInit{
     );
   }
 
+  deleteUser(id: any){
+    this.userService.deleteUser(id).subscribe(
+      (data:any) => {
+        console.log('User deleted successfully');
+        this.loadUsers(); // Refresh the product list
+      },
+      (error: any) => {
+        console.error('Error deleting user', error);
+      }
+    );
+  }
+
   updateUser(user: any) {
     const newName = prompt('Enter the new username:', user.name);
     const newSurname = prompt('Enter the new surname:', user.surname);
