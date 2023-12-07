@@ -60,4 +60,17 @@ export class ManageCategoryComponent implements OnInit{
     }
   }
 
+  deleteCategory(id: any) {
+    this.categoryService.deleteCategory(id).subscribe(
+      (data: any) => {
+        // Handle success, maybe show a success message
+        console.log('Category deleted successfully');
+        this.loadCategories(); // Refresh the product list
+      },
+      (error: any) => {
+        console.error('Error deleting category', error);
+      }
+    );
+  }
+
 }
