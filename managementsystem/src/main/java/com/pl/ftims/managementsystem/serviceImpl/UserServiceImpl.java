@@ -108,7 +108,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity<List<UserWrapper>> getAllUsers() {
         try {
-            if (jwtFilter.isUser()) {
+            if (jwtFilter.isAdmin()) {
                 return new ResponseEntity<>(userDao.getAllUsers(), HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(new ArrayList<>(), HttpStatus.UNAUTHORIZED);
@@ -120,16 +120,68 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<String> update(Map<String, String> requestMap) {
+    public ResponseEntity<String> update( Map<String, String> requestMap) {
         try {
             if (jwtFilter.isAdmin()) {
                 Optional<User> optional = userDao.findById(Integer.parseInt(requestMap.get("id")));
-                if (!optional.isEmpty()) {
-                    userDao.updateStatus(requestMap.get("status"), Integer.parseInt(requestMap.get("id")));
-                    sendMailToAllAdmin(requestMap.get("status"), optional.get().getEmail(), userDao.getAllAdmin());
-                    return BusinessUtils.getResponseEntity("User Status updated", HttpStatus.OK);
+                if (optional.isPresent()) {
+                    User user = optional.get();
+
+                    // Update name if provided
+                    if (requestMap.containsKey("name") && !requestMap.get("name").isEmpty()) {
+                        user.setName(requestMap.get("name"));
+                    }
+
+                    // Update surname if provided
+                    if (requestMap.containsKey("surname") && !requestMap.get("surname").isEmpty()) {
+                        user.setSurname(requestMap.get("surname"));
+                    }
+
+                    // Update email if provided
+                    if (requestMap.containsKey("email") && !requestMap.get("email").isEmpty()) {
+                        user.setEmail(requestMap.get("email"));
+                    }
+
+                    // Update password if provided
+                    if (requestMap.containsKey("password") && !requestMap.get("password").isEmpty()) {
+                        user.setPassword(requestMap.get("password"));
+                    }
+
+                    // Update status if provided
+                    if (requestMap.containsKey("status") && !requestMap.get("status").isEmpty()) {
+                        user.setStatus(requestMap.get("status"));
+                    }
+
+                    // Update role if provided
+                    if (requestMap.containsKey("role") && !requestMap.get("role").isEmpty()) {
+                        user.setRole(requestMap.get("role"));
+                    }
+
+                    userDao.save(user);
+
+                    return BusinessUtils.getResponseEntity("User updated successfully", HttpStatus.OK);
                 } else {
-                    BusinessUtils.getResponseEntity("ID doesnt exist in the database", HttpStatus.OK);
+                    return BusinessUtils.getResponseEntity("User not found in the database", HttpStatus.NOT_FOUND);
+                }
+            } else {
+                return BusinessUtils.getResponseEntity(BusinessConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return BusinessUtils.getResponseEntity(BusinessConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public ResponseEntity<String> deleteUser(Integer id) {
+        try {
+            if (jwtFilter.isAdmin()) {
+                Optional<User> optional = userDao.findById(id);
+                if (optional.isPresent()) {
+                    userDao.deleteById(id);
+                    return BusinessUtils.getResponseEntity("User deleted successfully", HttpStatus.OK);
+                } else {
+                    return BusinessUtils.getResponseEntity("User not found in the database", HttpStatus.NOT_FOUND);
                 }
             } else {
                 return BusinessUtils.getResponseEntity(BusinessConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
@@ -139,6 +191,8 @@ public class UserServiceImpl implements UserService {
         }
         return BusinessUtils.getResponseEntity(BusinessConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+
 
     private void sendMailToAllAdmin(String status, String user, List<String> allAdmin) {
         allAdmin.remove(jwtFilter.getCurrentUser());

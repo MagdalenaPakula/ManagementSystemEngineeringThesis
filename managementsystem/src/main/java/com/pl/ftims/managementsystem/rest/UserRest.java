@@ -2,10 +2,7 @@ package com.pl.ftims.managementsystem.rest;
 
 import com.pl.ftims.managementsystem.wrapper.UserWrapper;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -24,6 +21,9 @@ public interface UserRest {
 
     @PostMapping(path = "/update")
     ResponseEntity<String> update(@RequestBody Map<String, String> requestMap);
+
+    @PostMapping(path = "/delete/{id}")
+    ResponseEntity<String> deleteUser(@PathVariable Integer id);
 
     @GetMapping(path = "/checkToken")
     ResponseEntity<String> checkToken();

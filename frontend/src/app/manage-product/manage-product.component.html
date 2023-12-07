@@ -1,0 +1,51 @@
+<div>
+  <h2>Manage Products</h2>
+
+  <form [formGroup]="productForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" formControlName="name">
+
+    <label for="categoryId">Category ID:</label>
+    <input type="number" id="categoryId" formControlName="categoryId">
+
+    <label for="description">Description:</label>
+    <textarea id="description" formControlName="description"></textarea>
+
+    <label for="price">Price:</label>
+    <input type="text" id="price" formControlName="price">
+
+    <button type="button" (click)="addNewProduct()">Add Product</button>
+  </form>
+
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>Category Name</th>
+      <th>Category ID</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let product of products">
+      <td>{{ product.id }}</td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.description }}</td>
+      <td>{{ product.price }}</td>
+      <td>{{ product.categoryName }}</td>
+      <td>{{ product.categoryId }}</td>
+      <td>{{ product.status }}</td>
+      <td>
+        <button (click)="deleteProduct(product.id)">Delete</button>
+        <button (click)="updateProduct(product)">Update</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+
+</div>
