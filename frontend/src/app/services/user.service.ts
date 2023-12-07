@@ -74,5 +74,15 @@ export class UserService {
   deleteUser(id: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/delete/${id}`, null);
   }
-  
+
+  changePassword(data:any){
+    const url = `${this.baseUrl}/changePassword`;
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return this.http.post(url, data, { headers });
+  }
+
 }

@@ -26,6 +26,7 @@ import { ManageCategoryComponent } from './manage-category/manage-category.compo
 import { DashboardContainerComponent } from './dashboard-container/dashboard-container.component';
 import { ManageProductComponent } from './manage-product/manage-product.component';
 import { ManageUserComponent } from './manage-user/manage-user.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
@@ -51,7 +52,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     ManageCategoryComponent,
     DashboardContainerComponent,
     ManageProductComponent,
-    ManageUserComponent
+    ManageUserComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,
