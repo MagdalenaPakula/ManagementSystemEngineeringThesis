@@ -83,6 +83,26 @@ public class CategoryServiceImpl implements CategoryService {
         return BusinessUtils.getResponseEntity(BusinessConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @Override
+    public ResponseEntity<String> deleteCategory(Integer id) {
+        try {
+            if (jwtFilter.isAdmin()) {
+                Optional optional = categoryDao.findById(id);
+                if (!optional.isEmpty()) {
+                    categoryDao.deleteById(id);
+                    return BusinessUtils.getResponseEntity("Category deleted successfully", HttpStatus.OK);
+                }
+                return BusinessUtils.getResponseEntity(BusinessConstants.INVALID_DATA, HttpStatus.BAD_REQUEST);
+            } else {
+                return BusinessUtils.getResponseEntity(BusinessConstants.UNAUTHORIZED_ACCESS, HttpStatus.UNAUTHORIZED);
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return BusinessUtils.getResponseEntity(BusinessConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+
+    }
+
     public boolean validateCategoryMap(Map<String, String> requestMap, boolean validateId) {
         if (requestMap.containsKey("name")) {
             if (requestMap.containsKey("id") && validateId) {

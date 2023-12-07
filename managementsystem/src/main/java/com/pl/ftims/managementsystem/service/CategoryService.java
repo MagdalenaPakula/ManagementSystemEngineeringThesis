@@ -14,4 +14,5 @@ public interface CategoryService {
 
     ResponseEntity<String> updateCategory(Map<String, String> requestMap);
 
+    ResponseEntity<String> deleteCategory(Integer id);
 }
