@@ -14,7 +14,7 @@ body {
 .left-menu {
   width: 200px;
   padding: 20px;
-  background-color: #555555;
+  background-color: #F0EFEF;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 10px; /* Rounded corners */
   margin-top: 20px; /* Adjust the distance from the navbar */
@@ -32,8 +32,8 @@ body {
 
 .left-menu a {
   text-decoration: none;
-  color: #ffffff;
-  font-size: 18px; /* Slightly larger font size */
+  color: black;
+  font-size: 16px; /* Slightly larger font size */
   display: block;
   padding: 10px;
   border-radius: 5px; /* Rounded corners for each item */
@@ -63,4 +63,9 @@ body {
   .main-content {
     width: 100%;
   }
+}
+
+.left-menu ul li.active {
+  border-radius: 10px; /* Rounded corners */
+  background-color: #D3D3D3; /* Set your desired background color for the active link */
 }

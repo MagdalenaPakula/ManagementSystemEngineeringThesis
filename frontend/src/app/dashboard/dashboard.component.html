@@ -1,14 +1,17 @@
 <div class="dashboard">
+
   <!-- Left-side menu with only names -->
   <div class="left-menu">
     <ul>
-      <li><a routerLink="/dashboard">Dashboard</a></li>
-      <li><a routerLink="/dashboard/category">Categories</a></li>
-      <li><a routerLink="/dashboard/product">Products</a></li>
-      <li><a routerLink="/dashboard/cart">Bills</a></li>
-      <li><a routerLink="/dashboard/user">Users</a></li>
+      <li [class.active]="activeRoute === 'dashboard'"><a routerLink="/dashboard">Dashboard</a></li>
+      <li [class.active]="activeRoute === 'category'"><a routerLink="/dashboard/category">Categories</a></li>
+      <li [class.active]="activeRoute === 'product'"><a routerLink="/dashboard/product">Products</a></li>
+      <li [class.active]="activeRoute.includes('cart')"><a routerLink="/dashboard/cart">Bills/Orders/Cart</a></li>
+      <li [class.active]="activeRoute === 'user'"><a routerLink="/dashboard/user">Users</a></li>
     </ul>
   </div>
+
+
 
   <!-- Main content including the router outlet -->
   <div class="main-content">

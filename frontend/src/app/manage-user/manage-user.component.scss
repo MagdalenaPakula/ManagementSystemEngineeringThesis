@@ -1,61 +1,47 @@
-///* Add this to your existing styles or create a new styles file */
-//
-//.user-management {
-//  text-align: center;
-//}
-//
-//.user-management h2 {
-//  color: #444444;
-//  font-size: 24px;
-//}
-//
-//.user-management table {
-//  width: 100%;
-//  border-collapse: collapse;
-//  margin-top: 20px;
-//}
-//
-//.user-management th,
-//.user-management td {
-//  border: 1px solid #555555; /* Visible borders */
-//  padding: 10px;
-//}
-//
-//.user-management th {
-//  background-color: #555555;
-//  color: #ffffff;
-//}
-//
-//.user-management tbody tr:hover {
-//  background-color: #f0f0f0;
-//}
-//
-//.user-management button {
-//  background-color: #5bc0de; /* Bootstrap's info color */
-//  color: #ffffff;
-//  padding: 8px 16px;
-//  border: none;
-//  border-radius: 5px;
-//  cursor: pointer;
-//  margin-right: 5px;
-//}
-//
-//.user-management button:hover {
-//  background-color: #46b8da; /* Darker shade on hover */
-//}
-//
-//.user-management button.delete-button {
-//  background-color: #d9534f; /* Bootstrap's danger color */
-//}
-//
-//.user-management button.delete-button:hover {
-//  background-color: #c9302c; /* Darker shade on hover */
-//}
-//
-//.user-management button.update-button {
-//  background-color: #5bc0de; /* Bootstrap's info color */
-//}
-//
-//.user-management button.update-button:hover {
-//  background-color: #46b8da; /* Darker shade on hover */
-//}
+.table-container  {
+  padding: 20px;
+  background-color: #F0EFEF;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px; /* Rounded corners */
+  margin: 20px;
+
+}
+
+//TABLE  DESIGN
+
+.table-container table {
+  width: 100%;
+}
+
+.table-container th, .table-container td {
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table-container th {
+  background-color: #F0EFEF;
+}
+
+.table-container td {
+  background-color: #ffffff;
+}
+
+.table-container button {
+  background-color: #FF8C21;
+  color: white;
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  margin-right: 8px; /* Add margin between buttons */
+}
+
+.table-container button:last-child {
+  margin-right: 0; /* Remove margin for the last button */
+}
+
+.table-container button:hover {
+  background-color: #444444;
+  color: #ffffff;
+}

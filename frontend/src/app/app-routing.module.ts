@@ -9,6 +9,7 @@ import {ManageCategoryComponent} from "./manage-category/manage-category.compone
 import {DashboardContainerComponent} from "./dashboard-container/dashboard-container.component";
 import {ManageProductComponent} from "./manage-product/manage-product.component";
 import {ManageUserComponent} from "./manage-user/manage-user.component";
+import {ManageOrderComponent} from "./manage-order/manage-order.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' }, // Default route redirects to /home
@@ -23,7 +24,8 @@ const routes: Routes = [
       { path: '', component: DashboardContainerComponent },
       { path: 'category', component: ManageCategoryComponent },
       { path: 'product', component: ManageProductComponent },
-      { path: 'user', component: ManageUserComponent}
+      { path: 'user', component: ManageUserComponent},
+      { path: 'cart', component: ManageOrderComponent}
     ]
   }
 ];

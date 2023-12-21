@@ -14,7 +14,6 @@ export class ManageProductComponent implements OnInit {
   categoryId: number | undefined; // Add categoryId variable
   productId: number | undefined;  // Add productId variable
 
-
   constructor(private productService: ProductService, private fb: FormBuilder, private dialogService: DialogService) {
     this.productForm = this.fb.group({
       name: ['', Validators.required],
@@ -104,15 +103,17 @@ export class ManageProductComponent implements OnInit {
     }
   }
 
-  filterById(productId: number) {
-    this.productService.getProductById(productId).subscribe(
-      (data: any) => {
-        this.products = data;
-      },
-      (error: any) => {
-        console.error('Error filtering products by ID', error);
-      }
-    );
+  filterById() {
+    if (this.productId !== undefined){
+      this.productService.getProductById(this.productId).subscribe(
+        (data: any) => {
+          this.products = data;
+        },
+        (error: any) => {
+          console.error('Error filtering products by ID', error);
+        }
+      );
+    }
   }
 
   resetFilters() {
