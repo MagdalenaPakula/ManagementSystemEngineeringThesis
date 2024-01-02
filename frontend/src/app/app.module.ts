@@ -30,6 +30,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { ManageOrderComponent } from './manage-order/manage-order.component';
 import { MyAccountComponent } from './my-account/my-account.component';
 import { ChatComponent } from './chat/chat.component';
+import { DietGeneratorComponent } from './diet-generator/diet-generator.component';
 
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
@@ -59,7 +60,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     ChangePasswordComponent,
     ManageOrderComponent,
     MyAccountComponent,
-    ChatComponent
+    ChatComponent,
+    DietGeneratorComponent
   ],
   imports: [
     BrowserModule,

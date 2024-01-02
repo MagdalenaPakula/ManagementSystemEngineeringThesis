@@ -12,11 +12,13 @@ import {ManageUserComponent} from "./manage-user/manage-user.component";
 import {ManageOrderComponent} from "./manage-order/manage-order.component";
 import {MyAccountComponent} from "./my-account/my-account.component";
 import {ChatComponent} from "./chat/chat.component";
+import {DietGeneratorComponent} from "./diet-generator/diet-generator.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' }, // Default route redirects to /home
   { path: 'home', component: HomeComponent },
   { path: 'chat', component: ChatComponent },
+  { path: 'diet-generator', component: DietGeneratorComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
   { path: 'my-account', component: MyAccountComponent },
