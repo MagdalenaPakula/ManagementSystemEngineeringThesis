@@ -15,7 +15,7 @@
     <mat-menu #menu="matMenu">
       <button mat-menu-item *ngIf="!isLoggedIn" routerLink="login">Login</button>
       <button mat-menu-item *ngIf="!isLoggedIn" routerLink="signup">Sign Up</button>
-      <button mat-menu-item *ngIf="isLoggedIn">My Account</button>
+      <button mat-menu-item *ngIf="isLoggedIn" routerLink="my-account">My Account</button>
       <button mat-menu-item *ngIf="isLoggedIn" (click)="logout()">Logout</button>
       <button mat-menu-item *ngIf="isLoggedIn" (click)="handleChangePasswordAction()">Change Password</button>
     </mat-menu>
