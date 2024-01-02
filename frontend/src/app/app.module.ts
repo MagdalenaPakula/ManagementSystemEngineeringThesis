@@ -28,6 +28,8 @@ import { ManageProductComponent } from './manage-product/manage-product.componen
 import { ManageUserComponent } from './manage-user/manage-user.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ManageOrderComponent } from './manage-order/manage-order.component';
+import { MyAccountComponent } from './my-account/my-account.component';
+import { ChatComponent } from './chat/chat.component';
 
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
@@ -55,7 +57,9 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     ManageProductComponent,
     ManageUserComponent,
     ChangePasswordComponent,
-    ManageOrderComponent
+    ManageOrderComponent,
+    MyAccountComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
