@@ -8,6 +8,7 @@ import com.pl.ftims.managementsystem.wrapper.UserWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -59,6 +60,17 @@ public class UserRestImpl implements UserRest {
         }
         return BusinessUtils.getResponseEntity(BusinessConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @Override
+    public ResponseEntity<String> deleteUser(Integer id) {
+        try{
+            return userService.deleteUser(id);
+        }catch(Exception exception){
+            exception.printStackTrace();
+        }
+        return BusinessUtils.getResponseEntity(BusinessConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 
     @Override
     public ResponseEntity<String> checkToken() {

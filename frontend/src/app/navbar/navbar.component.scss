@@ -2,6 +2,24 @@
   flex: 1 1 auto
 }
 
+.person-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FF8C21;
+  border-radius: 20px;
+  margin: 2px; /* Adjust margin for spacing */
+  padding: 2px; /* Adjust padding for spacing */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease; /* Smooth color transition */
+  width: 70px; /* Adjust width as needed */
+  height: 35px;
+}
+
+.person-icon-container:hover {
+  background-color: white;
+}
+
 .business-management-icon{
   font-size: large;
 }
@@ -12,10 +30,14 @@
 
 .mat-toolbar {
   .menu-item-first-nav{
-    margin-left: 50px;
+    margin-right: 50px;
   }
 
   .menu-item-second-nav {
     margin-left: 50px;
   }
 }
+
+
+
+

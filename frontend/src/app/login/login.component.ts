@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, HostListener} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { UserService } from "../services/user.service";
 import { Router } from "@angular/router";
@@ -68,4 +68,10 @@ export class LoginComponent {
         dialogConfig.width = "600px";
         this.dialog.open(ForgotPasswordComponent, dialogConfig);
     }
+
+  // Method to handle "Enter" key press event
+  @HostListener('document:keydown.enter', ['$event'])
+  handleEnterKey(event: KeyboardEvent) {
+    this.login();
+  }
 }

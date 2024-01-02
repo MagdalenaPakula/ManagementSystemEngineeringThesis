@@ -27,7 +27,7 @@ export class AuthGuard implements CanActivate {
     } else if (userRole === 'user') {
       // Redirect users to home page if they try to access the dashboard
       if (next.routeConfig?.path === 'dashboard') {
-        this.dialogService.openDialog('Login Status', 'You do not have permission to access the dashboard');
+        // this.dialogService.openDialog('Login Status', 'You do not have permission to access the dashboard');
         console.log('Unauthorized attempt to access the dashboard.');
         return false;
       }

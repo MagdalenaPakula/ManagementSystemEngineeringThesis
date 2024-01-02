@@ -17,12 +17,18 @@ public class UserWrapper {
 
     private String status;
 
+    private String password;
 
-    public UserWrapper(Integer id, String name, String surname, String email, String status) {
+    private String role;
+
+
+    public UserWrapper(Integer id, String name, String surname, String email, String status, String password, String role) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.status = status;
+        this.password = password;
+        this.role = role;
     }
 }

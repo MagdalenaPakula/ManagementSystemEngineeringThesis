@@ -39,5 +39,4 @@ export class DashboardContainerComponent implements OnInit{
     this.router.navigate([route]);  // Use the router to navigate
   }
 
-
 }

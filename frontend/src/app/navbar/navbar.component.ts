@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import {AuthService} from "../services/auth.service";
 import {Router} from "@angular/router";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {ForgotPasswordComponent} from "../forgot-password/forgot-password.component";
+import {ChangePasswordComponent} from "../change-password/change-password.component";
 
 @Component({
   selector: 'app-navbar',
@@ -9,13 +12,21 @@ import {Router} from "@angular/router";
 })
 export class NavbarComponent {
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private dialog: MatDialog) {}
 
   logout() {
     // Call the logout method from your AuthService or do any other cleanup
     this.authService.logout();
-
-    // Navigate to the login page
-    this.router.navigate(['/login']);
   }
+
+  get isLoggedIn() {
+    return this.authService.isLoggedIn;
+  }
+
+  handleChangePasswordAction() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = "600px";
+    this.dialog.open(ChangePasswordComponent, dialogConfig);
+  }
+
 }
