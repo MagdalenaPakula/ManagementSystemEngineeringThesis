@@ -5,16 +5,18 @@
 }
 
 .dashboard-item {
+  background-color: #FF8C21;
+  color: white;
   cursor: pointer;
   text-align: center;
   padding: 20px;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease;
 
   &:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    color: #ff8c21;
+    box-shadow: 0 20px 20px rgba(0, 0, 0, 0.2);
+    color: black;
   }
 }

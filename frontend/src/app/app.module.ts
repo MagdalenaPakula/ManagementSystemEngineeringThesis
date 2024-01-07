@@ -27,6 +27,10 @@ import { DashboardContainerComponent } from './dashboard-container/dashboard-con
 import { ManageProductComponent } from './manage-product/manage-product.component';
 import { ManageUserComponent } from './manage-user/manage-user.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ManageOrderComponent } from './manage-order/manage-order.component';
+import { MyAccountComponent } from './my-account/my-account.component';
+import { DietGeneratorResultComponent } from './diet-generator-result/diet-generator-result.component';
+import { DietGeneratorInputComponent } from './diet-generator-input/diet-generator-input.component';
 
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
@@ -53,7 +57,11 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     DashboardContainerComponent,
     ManageProductComponent,
     ManageUserComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ManageOrderComponent,
+    MyAccountComponent,
+    DietGeneratorResultComponent,
+    DietGeneratorInputComponent
   ],
   imports: [
     BrowserModule,
@@ -88,3 +96,4 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+

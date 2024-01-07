@@ -1,0 +1,94 @@
+.add-new-category, .table-container  {
+  padding: 20px;
+  background-color: #F0EFEF;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px; /* Rounded corners */
+  margin: 20px;
+
+}
+
+.kolo-siebie{
+  display: flex;
+  align-items: center;
+}
+.input-container {
+  display: flex;
+  flex-direction: column; /* Stack label and input elements vertically */
+  margin-bottom: 10px; /* Adjust margin between input and button */
+}
+
+.input-group {
+  display: flex;
+}
+
+input {
+  margin-top: 10px;
+  border: none;
+  padding: 8px;
+  border-radius: 5px;
+  margin-right: 5px; /* Adjust margin between input and button */
+  max-width: 350px; /* Limit max width */
+  transition: max-width 0.2s ease; /* Smooth transition */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.add-button {
+  background-color: #FF8C21;
+  margin-left: 30px;
+  margin-top: 20px;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  max-width: 100px; /* Limit max width */
+  cursor: pointer; /* Add pointer cursor on hover */
+  transition: max-width 0.2s ease, background-color 0.2s ease; /* Smooth transition */
+}
+
+.input-group:hover input,
+.input-group:hover .add-button {
+  max-width: 100%; /* Allow full width on hover */
+}
+
+.add-button:hover {
+  background-color: #444444;
+}
+
+//TABLE  DESIGN
+
+.table-container table {
+  width: 100%;
+}
+
+.table-container th, .table-container td {
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table-container th {
+  background-color: #F0EFEF;
+}
+
+.table-container td {
+  background-color: #ffffff;
+}
+
+.table-container button {
+  background-color: #FF8C21;
+  color: white;
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  margin-right: 8px; /* Add margin between buttons */
+}
+
+.table-container button:last-child {
+  margin-right: 0; /* Remove margin for the last button */
+}
+
+.table-container button:hover {
+  background-color: #444444;
+  color: #ffffff;
+}

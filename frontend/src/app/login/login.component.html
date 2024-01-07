@@ -17,7 +17,9 @@
         <div class="col-25">
             <input type="password" id="password" formControlName="password" required placeholder="Your password..">
         </div>
-        <button type="button" (click)="login()" class="login-button">Log In</button>
+
+      <!-- Add (keyup.enter) event binding to trigger the login function -->
+      <button type="button" (click)="login()" (keyup.enter)="login()" class="login-button">Log In</button>
     </form>
 </div>
 <div class="signup-link-container">

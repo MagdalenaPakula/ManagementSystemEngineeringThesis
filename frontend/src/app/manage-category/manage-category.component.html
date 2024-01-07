@@ -1,30 +1,41 @@
-<div>
-  <h2>Manage Categories</h2>
+<div class="category-management">
+  <h2 style="margin-left:40px">Manage Categories</h2>
 
-  <table>
-    <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let category of categories">
-      <td>{{ category.id }}</td>
-      <td>{{ category.name }}</td>
-      <td>
-        <button (click)="updateCategory(category)">Update</button>
-        <button (click)="deleteCategory(category.id)">Delete</button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-
-  <div>
-    <h3>Add New Category</h3>
-    <label for="newCategoryName">Category Name:</label>
-    <input type="text" id="newCategoryName" [(ngModel)]="newCategoryName" />
-    <button (click)="addCategory()">Add Category</button>
+  <div class="add-new-category">
+    <h2>Add New Category</h2>
+    <div class="kolo-siebie">
+      <div class="input-container">
+        <label for="newCategoryName">Category Name:</label>
+        <input type="text" id="newCategoryName" [(ngModel)]="newCategoryName" />
+      </div>
+      <button class="add-button" (click)="addCategory()">ADD</button>
+    </div>
   </div>
+
+  <div class="table-container">
+    <h2>Listings</h2>
+    <table>
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let category of categories">
+        <td>{{ category.id }}</td>
+        <td>{{ category.name }}</td>
+        <td>
+          <button (click)="updateCategory(category)">Update</button>
+          <button (click)="deleteCategory(category.id)">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
 </div>
+
+
+

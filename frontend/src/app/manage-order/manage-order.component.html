@@ -1,0 +1,54 @@
+<!-- manage-order.component.html -->
+
+<div class="container">
+  <form [formGroup]="manageOrderForm" (ngSubmit)="submitAction()">
+    <label for="name">Name:</label>
+    <input type="text" id="name" formControlName="name" />
+
+    <label for="email">Email:</label>
+    <input type="text" id="email" formControlName="email" />
+
+    <label for="paymentMethod">Payment Method:</label>
+    <input type="text" id="paymentMethod" formControlName="paymentMethod" />
+
+    <label for="product">Product:</label>
+    <select id="product" formControlName="product" (change)="getProductDetails(manageOrderForm.controls['product'].value)">
+      <option *ngFor="let product of products" [value]="product.id">{{ product.name }}</option>
+    </select>
+
+    <label for="category">Category:</label>
+    <select id="category" formControlName="category" (change)="getProductsByCategory(manageOrderForm.controls['category'].value)">
+      <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+    </select>
+
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" formControlName="quantity" (change)="setQuantity(manageOrderForm.controls['quantity'].value)" />
+
+    <label for="price">Price:</label>
+    <input type="number" id="price" formControlName="price" [attr.disabled]="true" />
+
+    <label for="total">Total:</label>
+    <input type="number" id="total" formControlName="total" [attr.disabled]="true" />
+
+    <button type="button" (click)="add()">Add</button>
+    <button type="submit" [disabled]="!validateSubmit()">Submit</button>
+  </form>
+
+  <table>
+    <thead>
+    <tr>
+      <th *ngFor="let column of displayedColumns">{{ column }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of dataSource; let i = index">
+      <td>{{ item.name }}</td>
+      <td>{{ item.category }}</td>
+      <td>{{ item.price }}</td>
+      <td>{{ item.quantity }}</td>
+      <td>{{ item.total }}</td>
+      <td><button (click)="handleDeleteAction(i, item)">Delete</button></td>
+    </tr>
+    </tbody>
+  </table>
+</div>

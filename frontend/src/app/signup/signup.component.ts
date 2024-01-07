@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, HostListener} from '@angular/core';
 import { UserService } from "../services/user.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from '@angular/router';
@@ -44,4 +44,11 @@ export class SignupComponent {
         }
     );
   }
+
+  // Method to handle "Enter" key press event
+  @HostListener('document:keydown.enter', ['$event'])
+  handleEnterKey(event: KeyboardEvent) {
+    this.signUp();
+  }
+
 }

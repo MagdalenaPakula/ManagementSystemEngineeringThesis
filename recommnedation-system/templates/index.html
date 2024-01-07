@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Planner</title>
+</head>
+<body>
+    <h1>Welcome to the Meal Planner App!</h1>
+    <form action="/submit" method="post">
+        <label for="age">Enter your age:</label>
+        <input type="number" name="age" required>
+
+        <label for="weight">Enter your weight in kg:</label>
+        <input type="number" name="weight" required>
+
+        <label for="height">Enter your height in cm:</label>
+        <input type="number" name="height" required>
+
+        <label for="gender">Enter your gender (M/F):</label>
+        <input type="text" name="gender" required>
+
+        <label for="activity_level">Enter your activity level (sedentary/lightly active/moderately active/very active/extra active):</label>
+        <input type="text" name="activity_level" required>
+
+        <label for="goal">Do you want to lose weight, gain weight, or maintain your current weight?</label>
+        <input type="text" name="goal" required>
+
+        <label for="num_meals">Enter the number of meals per day (3, 4, or 5):</label>
+        <input type="number" name="num_meals" required>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

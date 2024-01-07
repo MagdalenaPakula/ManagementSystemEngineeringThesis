@@ -1,0 +1,47 @@
+.table-container  {
+  padding: 20px;
+  background-color: #F0EFEF;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px; /* Rounded corners */
+  margin: 20px;
+
+}
+
+//TABLE  DESIGN
+
+.table-container table {
+  width: 100%;
+}
+
+.table-container th, .table-container td {
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table-container th {
+  background-color: #F0EFEF;
+}
+
+.table-container td {
+  background-color: #ffffff;
+}
+
+.table-container button {
+  background-color: #FF8C21;
+  color: white;
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  margin-right: 8px; /* Add margin between buttons */
+}
+
+.table-container button:last-child {
+  margin-right: 0; /* Remove margin for the last button */
+}
+
+.table-container button:hover {
+  background-color: #444444;
+  color: #ffffff;
+}
