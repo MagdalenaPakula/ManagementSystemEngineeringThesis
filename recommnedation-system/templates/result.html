@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Planner Results</title>
+</head>
+<body>
+    <h1>Meal Planner Results</h1>
+
+    <p>Your BMI is: {{ bmi }}</p>
+    <p>Total Daily Calorie Needs: {{ calorie_calculation }}</p>
+
+    <h2>Best Combinations:</h2>
+<ul>
+    {% for combination in best_combinations %}
+        <li>Suggestions for {{ combination['meal'] }}: Combination: {{ combination['combination'] }}, Total Calories: {{ combination['total_calories'] }}</li>
+    {% endfor %}
+</ul>
+</body>
+</html>
