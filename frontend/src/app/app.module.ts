@@ -29,7 +29,8 @@ import { ManageUserComponent } from './manage-user/manage-user.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ManageOrderComponent } from './manage-order/manage-order.component';
 import { MyAccountComponent } from './my-account/my-account.component';
-import { ChatComponent } from './chat/chat.component';
+import { DietGeneratorResultComponent } from './diet-generator-result/diet-generator-result.component';
+import { DietGeneratorInputComponent } from './diet-generator-input/diet-generator-input.component';
 
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
@@ -59,7 +60,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     ChangePasswordComponent,
     ManageOrderComponent,
     MyAccountComponent,
-    ChatComponent
+    DietGeneratorResultComponent,
+    DietGeneratorInputComponent
   ],
   imports: [
     BrowserModule,
