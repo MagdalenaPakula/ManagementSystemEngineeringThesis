@@ -10,7 +10,6 @@ CORS(app)
 
 CORS(app, resources={r"/*": {"origins": "http://localhost:4200"}})
 
-
 # Load the input data and new data
 df = pd.read_csv('data/input.csv')
 new_data = pd.read_csv('new_file.csv')
@@ -63,9 +62,9 @@ def submit():
     elif activity_level == 'extra active':
         calorie_calculation = bmr * 1.9
     else:
-        return render_template('error.html', message="Invalid activity level input. Please choose from the provided options.")
+        print("Invalid activity level input. Please choose from the provided options.")
+        exit()
 
-    # Adjust the calorie distribution based on the number of meals
     if num_meals == 3:
         breakfast_percentage = 0.35
         lunch_percentage = 0.40
@@ -85,16 +84,13 @@ def submit():
         afternoon_snack_percentage = 0.10
         dinner_percentage = 0.25
     else:
-        return render_template('error.html', message="Invalid number of meals input. Please choose 3, 4, or 5.")
+        print("Invalid number of meals input. Please choose 3, 4, or 5.")
+        exit()
 
-    # # Calculate the calories for each meal based on the percentage
-    # breakfast_calories = calorie_calculation * breakfast_percentage
-    # lunch_calories = calorie_calculation * lunch_percentage
-    # dinner_calories = calorie_calculation * dinner_percentage
-
-    # Define afternoon_snack_percentage for 5 meals
-    if num_meals == 5:
-        afternoon_snack_percentage = 0.10
+    # Calculate the calories for each meal based on the percentage
+    breakfast_calories = calorie_calculation * breakfast_percentage
+    lunch_calories = calorie_calculation * lunch_percentage
+    dinner_calories = calorie_calculation * dinner_percentage
 
     # Generate meal suggestions based on the goal
     if goal == 'lose weight':
@@ -118,20 +114,21 @@ def submit():
     app.logger.info(f"\nYour body mass index is: {bmi:.2f}")
 
     # Print weight category based on BMI
+    bmi_categories = {4: "severely underweight", 3: "underweight", 2: "Healthy", 1: "overweight", 0: "severely overweight"}
     if bmi < 16:
-        app.logger.info("severely underweight")
+        app.logger.info(bmi_categories[4])
         clbmi = 4
     elif 16 <= bmi < 18.5:
-        app.logger.info("underweight")
+        app.logger.info(bmi_categories[3])
         clbmi = 3
     elif 18.5 <= bmi < 25:
-        app.logger.info("Healthy")
+        app.logger.info(bmi_categories[2])
         clbmi = 2
     elif 25 <= bmi < 30:
-        app.logger.info("overweight")
+        app.logger.info(bmi_categories[1])
         clbmi = 1
     elif bmi >= 30:
-        app.logger.info("severely overweight")
+        app.logger.info(bmi_categories[0])
         clbmi = 0
 
     # Print daily calorie needs
@@ -140,10 +137,11 @@ def submit():
     # Find the best combinations for each meal
     best_combinations = []
     meal_percentages = [('Breakfast', breakfast_percentage), ('Morning Snack', morning_snack_percentage),
-                        ('Lunch', lunch_percentage), ('Dinner', dinner_percentage), ('Afternoon Snack', afternoon_snack_percentage)]
+                        ('Lunch', lunch_percentage), ('Dinner', dinner_percentage),
+                        ('Afternoon Snack', afternoon_snack_percentage)]
 
     for meal, percentage in meal_percentages[:num_meals]:  # Limit to the selected number of meals
-        app.logger.info(f"\nSuggestions for {meal}:")
+        print(f"\nSuggestions for {meal}:")
 
         # Limit the number of combinations
         max_combinations = 1000  # Adjust the number as needed
@@ -159,7 +157,7 @@ def submit():
         # Print the meal names and total calories for the best combination
         meal_names = valid_recipes.loc[list(best_combination), 'Name'].tolist()
         total_calories = valid_recipes.loc[list(best_combination), 'Calories'].sum()
-        app.logger.info(f"Combination: {meal_names}, Total Calories: {total_calories:.2f}")
+        print(f"Combination: {meal_names}, Total Calories: {total_calories:.2f}")
 
         # Append the combination to the best_combinations list
         best_combinations.append({'meal': meal, 'combination': meal_names, 'total_calories': total_calories})
