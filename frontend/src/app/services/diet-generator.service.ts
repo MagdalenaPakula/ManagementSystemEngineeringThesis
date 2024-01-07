@@ -5,14 +5,14 @@ import {Observable} from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
-export class ChatService {
+export class DietGeneratorService {
 
-  private apiUrl = 'http://127.0.0.1:8000';
+  private apiUrl = 'http://127.0.0.1:5000';
 
   constructor(private http: HttpClient) {}
 
-  sendMessage(message: string): Observable<any> {
-    const data = { message };
-    return this.http.post(`${this.apiUrl}/predict`, data);
+  generateDiet(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/submit`, data);
   }
+
 }
