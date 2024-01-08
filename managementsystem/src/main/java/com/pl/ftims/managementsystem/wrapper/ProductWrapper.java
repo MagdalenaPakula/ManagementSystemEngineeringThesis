@@ -19,6 +19,8 @@ public class ProductWrapper {
 
     private String categoryName;
 
+    private byte[] image; // Added image field
+
     public ProductWrapper(Integer id, String name, String description, Float price, String status, Integer categoryId, String categoryName) {
         this.id = id;
         this.name = name;

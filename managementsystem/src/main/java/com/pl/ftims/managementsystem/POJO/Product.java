@@ -45,6 +45,10 @@ public class Product implements Serializable {
     @Column(name = "status")
     private String status;
 
+    @Lob
+    @Column(name = "image", columnDefinition = "BLOB")
+    private byte[] image;
+
     public Integer getId() {
         return id;
     }

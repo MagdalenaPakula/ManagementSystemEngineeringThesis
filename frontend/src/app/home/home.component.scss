@@ -1,18 +1,177 @@
-// Add or update the existing styles
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #FFFFFF;
+  color: #444444;
+  padding: 10px 20px;
+  font-weight: 500;
+
+  .menu-item {
+    margin-left: 20px;
+    margin-right: 20px;
+    cursor: pointer;
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    .icon {
+      width: 20px;
+      height: 20px;
+      margin-right: 5px;
+    }
+
+    .categories-dropdown {
+      position: absolute;
+      top: 100px;
+      margin-left: 20px;
+      padding: 10px 60px 20px 10px;
+      display: none; /* Initially hide the dropdown */
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 1;
+    }
+
+    &:hover .categories-dropdown {
+      display: block; /* Show the dropdown on hover */
+    }
+
+    .category-item {
+      padding: 8px; /* Adjust the padding for each category */
+      cursor: pointer;
+      margin-bottom: 5px; /* Add margin-bottom to create space between categories */
+    }
+
+    .category-item:hover {
+      background-color: #f5f5f5; /* Highlight the background on hover */
+    }
+  }
+
+}
+
+
+.category-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clear-filter-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-top: -18px;
+  margin-left: 10px; /* Adjust the margin as needed */
+  width: 20px; /* Adjust the size as needed */
+  height: 20px; /* Adjust the size as needed */
+}
+
+.close-icon {
+  width: 20px; /* Adjust the size as needed */
+  height: 20px; /* Adjust the size as needed */
+}
+
+
+
+.search-bar {
+  flex-grow: 1;
+  max-width: 400px;
+  margin: 0 20px;
+  position: relative; /* for absolute positioning of the icon */
+
+  input {
+    padding: 5px;
+    width: 100%;
+    max-width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    outline: none;
+  }
+
+  .icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 15px;
+    height: 15px;
+  }
+}
+
+.basket-button{
+  display: flex;
+  align-items: center;
+  background-color: #ff8c21;
+  border-radius: 50px;
+  width: 100px;
+  border-style: none;
+  padding: 5px;
+  margin-left: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+
+  &:hover {
+    background-color: #444444;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .button-icon{
+    width: 25px;
+    height: 25px;
+    margin: 0 auto;
+  }
+}
+
+
+.product-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.product-card {
+  text-align: center;
+  width: 200px;
+  height: 200px;
+  margin: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    color: white;
+    background-color: #444444;
+    transition: all 0.3s ease;
+  }
+
+  .card-header {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .card-body {
+    font-size: 14px;
+  }
+}
+
 .chatbox {
   position: fixed;
   bottom: 30px;
   right: 30px;
 }
 
-/* Add this class for animation */
 .chatbox--active {
   transform: translateY(-40px);
   z-index: 123456;
   opacity: 1;
 }
 
-/* Add or update the existing styles */
 .chatbox__button button,
 .chatbox__button button:focus,
 .chatbox__button button:visited {
@@ -26,3 +185,6 @@
   box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
   cursor: pointer;
 }
+
+
+

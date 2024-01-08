@@ -10,7 +10,6 @@ CORS(app)
 
 CORS(app, resources={r"/*": {"origins": "http://localhost:4200"}})
 
-
 # Load the input data and new data
 df = pd.read_csv('data/input.csv')
 new_data = pd.read_csv('new_file.csv')
@@ -25,6 +24,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 # Train the decision tree classifier
 clf = DecisionTreeClassifier()
 clf.fit(X_train, y_train['Breakfast'])  # Assuming 'Breakfast' is the target variable
+
 
 # Define a route for the home page
 @app.route('/')
@@ -115,7 +115,7 @@ def submit():
         valid_recipes = new_data[new_data['Calories'] <= calorie_threshold]
 
         # Sample a smaller subset of recipes
-        sample_size = 100  # Adjust the size as needed
+        sample_size = 200  # Adjust the size as needed
         valid_recipes = valid_recipes.sample(n=sample_size)
 
         # Calculate BMI
@@ -166,15 +166,18 @@ def submit():
             # Take the top combination
             best_combination = sorted_combinations[0]
 
-            # Print the meal names and total calories for the best combination
+            # Fetch RecipeCategory for each recipe in the combination
+            categories = valid_recipes.loc[list(best_combination), 'RecipeCategory'].tolist()
+
+            # Print the meal names, categories, and total calories for the best combination
             meal_names = valid_recipes.loc[list(best_combination), 'Name'].tolist()
             total_calories = valid_recipes.loc[list(best_combination), 'Calories'].sum()
-            print(f"Combination: {meal_names}, Total Calories: {total_calories:.2f}")
 
-            # Append the combination to the best_combinations list
-            best_combinations.append({'meal': meal, 'combination': meal_names, 'total_calories': total_calories})
+            print(f"Combination: {meal_names}, Categories: {categories}, Total Calories: {total_calories:.2f}")
 
-
+            # Append the combination with categories to the best_combinations list
+            best_combinations.append(
+                {'meal': meal, 'combination': meal_names, 'categories': categories, 'total_calories': total_calories})
 
         # Example: Render a result template
         # return render_template('result.html', bmi=bmi, calorie_calculation=calorie_calculation,
@@ -183,9 +186,17 @@ def submit():
 
         #  Flask routes to return JSON responses instead of rendering HTML templates. This is because Angular will communicate with the backend using HTTP requests.
         return jsonify({
-            'bmi': bmi,
-            'calorie_calculation': calorie_calculation,
-            'best_combinations': best_combinations
+            'bmi': round(bmi, 2),
+            'calorie_calculation': round(calorie_calculation, 2),
+            'best_combinations': [
+                {
+                    'meal': entry['meal'],
+                    'combination': entry['combination'],
+                    'categories': entry['categories'],
+                    'total_calories': round(entry['total_calories'], 2)
+                }
+                for entry in best_combinations
+            ]
         })
     except KeyError as e:
         return jsonify({'error': f'Missing key: {e.args[0]}'})
