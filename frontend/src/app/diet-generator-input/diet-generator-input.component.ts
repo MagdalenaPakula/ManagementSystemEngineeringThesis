@@ -30,7 +30,6 @@ export class DietGeneratorInputComponent implements OnInit {
     });
   }
 
-  // diet-generator-input.component.ts
   onSubmit(): void {
     if (this.dietForm && this.dietForm.valid) {  // Check for existence
       const formData = this.dietForm.value;

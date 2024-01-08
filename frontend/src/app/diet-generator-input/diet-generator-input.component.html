@@ -1,25 +1,56 @@
-<h1>Welcome to the Diet Generator!</h1>
-<form [formGroup]="dietForm" (ngSubmit)="onSubmit()">
-  <label for="age">Enter your age:</label>
-  <input id="age" type="number" formControlName="age" required>
+<link rel="stylesheet" href="diet-generator-input.component.scss">
+<div class="form-container">
+  <h1>DIET GENERATOR</h1>
+  <form [formGroup]="dietForm" (ngSubmit)="onSubmit()">
+    <label for="age">Enter your age:</label>
+    <input id="age" type="number" formControlName="age" required min="14" max="100">
 
-  <label for="weight">Enter your weight in kg:</label>
-  <input id="weight" type="number" formControlName="weight" required>
+    <label for="weight">Enter your weight in kg:</label>
+    <input id="weight" type="number" formControlName="weight" required min="30" max="300">
 
-  <label for="height">Enter your height in cm:</label>
-  <input id="height" type="number" formControlName="height" required>
+    <label for="height">Enter your height in cm:</label>
+    <input id="height" type="number" formControlName="height" required min="50" max="250">
 
-  <label for="gender">Enter your gender (M/F):</label>
-  <input id="gender" type="text" formControlName="gender" required>
+    <label>Enter your gender:</label>
+    <div>
+      <input type="radio" id="gender-f" name="gender" value="F" formControlName="gender" required>
+      <label for="gender-f">Female</label>
 
-  <label for="activity_level">Enter your activity level (sedentary/lightly active/moderately active/very active/extra active):</label>
-  <input id="activity_level" type="text" formControlName="activity_level" required>
+      <input type="radio" id="gender-m" name="gender" value="M" formControlName="gender" required>
+      <label for="gender-m">Male</label>
+    </div>
 
-  <label for="goal">Do you want to lose weight, gain weight, or maintain your current weight?</label>
-  <input id="goal" type="text" formControlName="goal" required>
 
-  <label for="num_meals">Enter the number of meals per day (3, 4, or 5):</label>
-  <input id="num_meals" type="number" formControlName="num_meals" required>
+    <label for="activity_level">Enter your activity level:</label>
+    <select id="activity_level" formControlName="activity_level" required>
+      <option value="sedentary">Sedentary</option>
+      <option value="lightly active">Lightly Active</option>
+      <option value="moderately active">Moderately Active</option>
+      <option value="very active">Very Active</option>
+      <option value="extra active">Extra Active</option>
+    </select>
 
-  <button type="submit">Submit</button>
-</form>
+
+    <label>Choose your goal:</label>
+    <div>
+      <input type="radio" id="lose-weight" name="goal" value="1" formControlName="goal" required>
+      <label for="lose-weight">Lose Weight</label>
+
+      <input type="radio" id="gain-weight" name="goal" value="2" formControlName="goal" required>
+      <label for="gain-weight">Gain Weight</label>
+
+      <input type="radio" id="maintain" name="goal" value="3" formControlName="goal" required>
+      <label for="maintain">Maintain</label>
+    </div>
+
+
+    <label for="num_meals">Select the number of meals per day:</label>
+    <select id="num_meals" type="number" formControlName="num_meals" required>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+
+    <button type="submit">Submit</button>
+  </form>
+</div>

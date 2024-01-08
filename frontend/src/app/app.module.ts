@@ -31,6 +31,7 @@ import { ManageOrderComponent } from './manage-order/manage-order.component';
 import { MyAccountComponent } from './my-account/my-account.component';
 import { DietGeneratorResultComponent } from './diet-generator-result/diet-generator-result.component';
 import { DietGeneratorInputComponent } from './diet-generator-input/diet-generator-input.component';
+import { DietGeneratorComponent } from './diet-generator/diet-generator.component';
 
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
@@ -61,7 +62,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     ManageOrderComponent,
     MyAccountComponent,
     DietGeneratorResultComponent,
-    DietGeneratorInputComponent
+    DietGeneratorInputComponent,
+    DietGeneratorComponent
   ],
   imports: [
     BrowserModule,

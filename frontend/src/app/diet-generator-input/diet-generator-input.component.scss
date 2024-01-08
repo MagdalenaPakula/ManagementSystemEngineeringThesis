@@ -1,0 +1,57 @@
+.form-container {
+  background-color: #FF8C21;
+  border-radius: 15px;
+  max-width: 800px;
+  margin: 20px auto; /* Center the form horizontally */
+  padding: 20px;
+  color: white;
+}
+
+h1 {
+  text-align: center;
+}
+
+form {
+  display: grid;
+  gap: 10px;
+
+  label {
+    display: block;
+  }
+
+  input[type="number"],
+  select,
+  button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+
+  div {
+    display: flex;
+    gap: 10px;
+
+    label {
+      flex: 1;
+    }
+  }
+
+  button {
+    background-color: white;
+    color: #FF8C21;
+    cursor: pointer;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  form {
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: space-between; /* Ensure even spacing between columns */
+  }
+
+  button {
+    grid-column: span 2; /* Make the button span both columns */
+  }
+}

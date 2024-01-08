@@ -1,0 +1,59 @@
+.diet-generator-container {
+  max-width: 1400px; /* Adjusted to make elements smaller */
+  margin: 0 auto;
+  text-align: center;
+  padding: 20px;
+}
+
+h1 {
+  color: #FF8C21;
+  margin-bottom: 15px; /* Reduced margin for smaller spacing */
+  font-size: 30px; /* Slightly reduced font size */
+}
+
+p {
+  color: #444444;
+  line-height: 1.5; /* Slightly reduced line height */
+  font-size: 14px; /* Smaller font size */
+}
+
+.how-it-works,
+.why-choose{
+  margin-top: 30px; /* Reduced margin for smaller spacing */
+  padding: 20px; /* Smaller padding for sections */
+  background-color: #F0EFEF;
+  border-radius: 15px; /* Reduced border radius for a softer look */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateY(15px);
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+ol, ul {
+  text-align: left;
+}
+
+button {
+  display: inline-block;
+  padding: 15px 30px;
+  margin-top: 30px;
+  background-color: #FF8C21;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+
+  &:hover {
+    background-color: #555555;
+  }
+}
+

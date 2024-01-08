@@ -13,10 +13,12 @@ import {ManageOrderComponent} from "./manage-order/manage-order.component";
 import {MyAccountComponent} from "./my-account/my-account.component";
 import {DietGeneratorInputComponent} from "./diet-generator-input/diet-generator-input.component";
 import {DietGeneratorResultComponent} from "./diet-generator-result/diet-generator-result.component";
+import {DietGeneratorComponent} from "./diet-generator/diet-generator.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' }, // Default route redirects to /home
   { path: 'home', component: HomeComponent },
+  { path: 'diet-generator', component: DietGeneratorComponent },
   { path: 'diet-generator-input', component: DietGeneratorInputComponent },
   { path: 'result', component: DietGeneratorResultComponent },
   { path: 'signup', component: SignupComponent },
