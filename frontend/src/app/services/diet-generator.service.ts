@@ -11,8 +11,7 @@ export class DietGeneratorService {
 
   constructor(private http: HttpClient) {}
 
-  generateDiet(data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/submit`, data);
+  submitForm(data: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/submit`, data);
   }
-
 }
