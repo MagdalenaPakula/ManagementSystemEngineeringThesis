@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' }, // Default route redirects to /home
   { path: 'home', component: HomeComponent },
   { path: 'diet-generator-input', component: DietGeneratorInputComponent },
-  { path: 'diet-generator-result', component: DietGeneratorResultComponent },
+  { path: 'result', component: DietGeneratorResultComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
   { path: 'my-account', component: MyAccountComponent },

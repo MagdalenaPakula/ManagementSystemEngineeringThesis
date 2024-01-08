@@ -2,13 +2,14 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from itertools import combinations, islice
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
 
 CORS(app, resources={r"/*": {"origins": "http://localhost:4200"}})
+
 
 # Load the input data and new data
 df = pd.read_csv('data/input.csv')
@@ -30,141 +31,165 @@ clf.fit(X_train, y_train['Breakfast'])  # Assuming 'Breakfast' is the target var
 def home():
     return render_template('index.html')
 
+
 # Define a route to handle the form submission
-@app.route('/submit', methods=['POST'])
+@app.route('/submit', methods=['POST', 'OPTIONS'])
 def submit():
-    # Get user input from the form
-    age = float(request.form['age'])
-    weight = float(request.form['weight'])
-    height = float(request.form['height'])
-    gender = request.form['gender'].upper()
-    activity_level = request.form['activity_level'].lower()
-    goal = request.form['goal'].lower()
-    num_meals = int(request.form['num_meals'])
+    try:
+        form_data = request.form.to_dict()
+        app.logger.info(f"Received form data: {form_data}")
 
-    # Calculate BMR based on gender
-    if gender == 'M':
-        bmr = 10 * weight + 6.25 * height - 5 * age + 5
-    elif gender == 'F':
-        bmr = 10 * weight + 6.25 * height - 5 * age - 161
-    else:
-        return render_template('error.html', message="Invalid gender input. Please enter 'M' or 'F'")
+        # Check for missing keys
+        required_keys = ['age', 'weight', 'height', 'gender', 'activity_level', 'goal', 'num_meals']
+        if any(key not in form_data for key in required_keys):
+            return jsonify({'error': 'Missing one or more required keys'})
 
-    # Calculate Total Daily Calorie needs based on activity factor
-    if activity_level == 'sedentary':
-        calorie_calculation = bmr * 1.2
-    elif activity_level == 'lightly active':
-        calorie_calculation = bmr * 1.375
-    elif activity_level == 'moderately active':
-        calorie_calculation = bmr * 1.55
-    elif activity_level == 'very active':
-        calorie_calculation = bmr * 1.725
-    elif activity_level == 'extra active':
-        calorie_calculation = bmr * 1.9
-    else:
-        print("Invalid activity level input. Please choose from the provided options.")
-        exit()
+        # Get user input from the form
+        age = float(form_data['age'])
+        weight = float(form_data['weight'])
+        height = float(form_data['height'])
+        gender = form_data['gender'].upper()
+        activity_level = form_data['activity_level'].lower()
+        goal = form_data['goal'].lower()
+        num_meals = int(form_data['num_meals'])
 
-    if num_meals == 3:
-        breakfast_percentage = 0.35
-        lunch_percentage = 0.40
-        dinner_percentage = 0.25
-        morning_snack_percentage = 0.0
-        afternoon_snack_percentage = 0.0
-    elif num_meals == 4:
-        breakfast_percentage = 0.25
-        morning_snack_percentage = 0.10
-        lunch_percentage = 0.35
-        dinner_percentage = 0.30
-        afternoon_snack_percentage = 0.0
-    elif num_meals == 5:
-        breakfast_percentage = 0.25
-        morning_snack_percentage = 0.10
-        lunch_percentage = 0.30
-        afternoon_snack_percentage = 0.10
-        dinner_percentage = 0.25
-    else:
-        print("Invalid number of meals input. Please choose 3, 4, or 5.")
-        exit()
+        # Calculate BMR based on gender
+        if gender == 'M':
+            bmr = 10 * weight + 6.25 * height - 5 * age + 5
+        elif gender == 'F':
+            bmr = 10 * weight + 6.25 * height - 5 * age - 161
+        else:
+            return render_template('error.html', message="Invalid gender input. Please enter 'M' or 'F'")
 
-    # Calculate the calories for each meal based on the percentage
-    breakfast_calories = calorie_calculation * breakfast_percentage
-    lunch_calories = calorie_calculation * lunch_percentage
-    dinner_calories = calorie_calculation * dinner_percentage
+        # Calculate Total Daily Calorie needs based on activity factor
+        if activity_level == 'sedentary':
+            calorie_calculation = bmr * 1.2
+        elif activity_level == 'lightly active':
+            calorie_calculation = bmr * 1.375
+        elif activity_level == 'moderately active':
+            calorie_calculation = bmr * 1.55
+        elif activity_level == 'very active':
+            calorie_calculation = bmr * 1.725
+        elif activity_level == 'extra active':
+            calorie_calculation = bmr * 1.9
+        else:
+            print("Invalid activity level input. Please choose from the provided options.")
+            exit()
 
-    # Generate meal suggestions based on the goal
-    if goal == 'lose weight':
-        calorie_threshold = calorie_calculation - 500  # Adjust as needed for weight loss
-    elif goal == 'gain weight':
-        calorie_threshold = calorie_calculation + 500  # Adjust as needed for weight gain
-    else:
-        calorie_threshold = calorie_calculation
+        if num_meals == 3:
+            breakfast_percentage = 0.35
+            lunch_percentage = 0.40
+            dinner_percentage = 0.25
+            morning_snack_percentage = 0.0
+            afternoon_snack_percentage = 0.0
+        elif num_meals == 4:
+            breakfast_percentage = 0.25
+            morning_snack_percentage = 0.10
+            lunch_percentage = 0.35
+            dinner_percentage = 0.30
+            afternoon_snack_percentage = 0.0
+        elif num_meals == 5:
+            breakfast_percentage = 0.25
+            morning_snack_percentage = 0.10
+            lunch_percentage = 0.30
+            afternoon_snack_percentage = 0.10
+            dinner_percentage = 0.25
+        else:
+            print("Invalid number of meals input. Please choose 3, 4, or 5.")
+            exit()
 
-    # Filter recipes based on calorie threshold
-    valid_recipes = new_data[new_data['Calories'] <= calorie_threshold]
+        # Calculate the calories for each meal based on the percentage
+        breakfast_calories = calorie_calculation * breakfast_percentage
+        lunch_calories = calorie_calculation * lunch_percentage
+        dinner_calories = calorie_calculation * dinner_percentage
 
-    # Sample a smaller subset of recipes
-    sample_size = 100  # Adjust the size as needed
-    valid_recipes = valid_recipes.sample(n=sample_size)
+        # Generate meal suggestions based on the goal
+        if goal == 'lose weight':
+            calorie_threshold = calorie_calculation - 500  # Adjust as needed for weight loss
+        elif goal == 'gain weight':
+            calorie_threshold = calorie_calculation + 500  # Adjust as needed for weight gain
+        else:
+            calorie_threshold = calorie_calculation
 
-    # Calculate BMI
-    bmi = weight / ((height / 100) ** 2)
+        # Filter recipes based on calorie threshold
+        valid_recipes = new_data[new_data['Calories'] <= calorie_threshold]
 
-    # Print BMI
-    app.logger.info(f"\nYour body mass index is: {bmi:.2f}")
+        # Sample a smaller subset of recipes
+        sample_size = 100  # Adjust the size as needed
+        valid_recipes = valid_recipes.sample(n=sample_size)
 
-    # Print weight category based on BMI
-    bmi_categories = {4: "severely underweight", 3: "underweight", 2: "Healthy", 1: "overweight", 0: "severely overweight"}
-    if bmi < 16:
-        app.logger.info(bmi_categories[4])
-        clbmi = 4
-    elif 16 <= bmi < 18.5:
-        app.logger.info(bmi_categories[3])
-        clbmi = 3
-    elif 18.5 <= bmi < 25:
-        app.logger.info(bmi_categories[2])
-        clbmi = 2
-    elif 25 <= bmi < 30:
-        app.logger.info(bmi_categories[1])
-        clbmi = 1
-    elif bmi >= 30:
-        app.logger.info(bmi_categories[0])
-        clbmi = 0
+        # Calculate BMI
+        bmi = weight / ((height / 100) ** 2)
 
-    # Print daily calorie needs
-    app.logger.info(f"\nTotal Daily Calorie Needs: {calorie_calculation:.2f}")
+        # Print BMI
+        app.logger.info(f"\nYour body mass index is: {bmi:.2f}")
 
-    # Find the best combinations for each meal
-    best_combinations = []
-    meal_percentages = [('Breakfast', breakfast_percentage), ('Morning Snack', morning_snack_percentage),
-                        ('Lunch', lunch_percentage), ('Dinner', dinner_percentage),
-                        ('Afternoon Snack', afternoon_snack_percentage)]
+        # Print weight category based on BMI
+        bmi_categories = {4: "severely underweight", 3: "underweight", 2: "Healthy", 1: "overweight",
+                          0: "severely overweight"}
+        if bmi < 16:
+            app.logger.info(bmi_categories[4])
+            clbmi = 4
+        elif 16 <= bmi < 18.5:
+            app.logger.info(bmi_categories[3])
+            clbmi = 3
+        elif 18.5 <= bmi < 25:
+            app.logger.info(bmi_categories[2])
+            clbmi = 2
+        elif 25 <= bmi < 30:
+            app.logger.info(bmi_categories[1])
+            clbmi = 1
+        elif bmi >= 30:
+            app.logger.info(bmi_categories[0])
+            clbmi = 0
 
-    for meal, percentage in meal_percentages[:num_meals]:  # Limit to the selected number of meals
-        print(f"\nSuggestions for {meal}:")
+        # Print daily calorie needs
+        app.logger.info(f"\nTotal Daily Calorie Needs: {calorie_calculation:.2f}")
 
-        # Limit the number of combinations
-        max_combinations = 1000  # Adjust the number as needed
-        all_combinations = list(islice(combinations(valid_recipes.index, 3), max_combinations))
+        # Find the best combinations for each meal
+        best_combinations = []
+        meal_percentages = [('Breakfast', breakfast_percentage), ('Morning Snack', morning_snack_percentage),
+                            ('Lunch', lunch_percentage), ('Dinner', dinner_percentage),
+                            ('Afternoon Snack', afternoon_snack_percentage)]
 
-        # Sort combinations based on how close they are to the calorie threshold
-        sorted_combinations = sorted(all_combinations, key=lambda combo: abs(
-            valid_recipes.loc[list(combo), 'Calories'].sum() - calorie_calculation * percentage))
+        for meal, percentage in meal_percentages[:num_meals]:  # Limit to the selected number of meals
+            print(f"\nSuggestions for {meal}:")
 
-        # Take the top combination
-        best_combination = sorted_combinations[0]
+            # Limit the number of combinations
+            max_combinations = 1000  # Adjust the number as needed
+            all_combinations = list(islice(combinations(valid_recipes.index, 3), max_combinations))
 
-        # Print the meal names and total calories for the best combination
-        meal_names = valid_recipes.loc[list(best_combination), 'Name'].tolist()
-        total_calories = valid_recipes.loc[list(best_combination), 'Calories'].sum()
-        print(f"Combination: {meal_names}, Total Calories: {total_calories:.2f}")
+            # Sort combinations based on how close they are to the calorie threshold
+            sorted_combinations = sorted(all_combinations, key=lambda combo: abs(
+                valid_recipes.loc[list(combo), 'Calories'].sum() - calorie_calculation * percentage))
 
-        # Append the combination to the best_combinations list
-        best_combinations.append({'meal': meal, 'combination': meal_names, 'total_calories': total_calories})
+            # Take the top combination
+            best_combination = sorted_combinations[0]
 
-    # Example: Render a result template
-    return render_template('result.html', bmi=bmi, calorie_calculation=calorie_calculation,
-                           best_combinations=best_combinations)
+            # Print the meal names and total calories for the best combination
+            meal_names = valid_recipes.loc[list(best_combination), 'Name'].tolist()
+            total_calories = valid_recipes.loc[list(best_combination), 'Calories'].sum()
+            print(f"Combination: {meal_names}, Total Calories: {total_calories:.2f}")
+
+            # Append the combination to the best_combinations list
+            best_combinations.append({'meal': meal, 'combination': meal_names, 'total_calories': total_calories})
+
+
+
+        # Example: Render a result template
+        # return render_template('result.html', bmi=bmi, calorie_calculation=calorie_calculation,
+        #                        best_combinations=best_combinations)
+        # Example: Return a JSON response
+
+        #  Flask routes to return JSON responses instead of rendering HTML templates. This is because Angular will communicate with the backend using HTTP requests.
+        return jsonify({
+            'bmi': bmi,
+            'calorie_calculation': calorie_calculation,
+            'best_combinations': best_combinations
+        })
+    except KeyError as e:
+        return jsonify({'error': f'Missing key: {e.args[0]}'})
+
 
 if __name__ == '__main__':
     app.run(debug=True)

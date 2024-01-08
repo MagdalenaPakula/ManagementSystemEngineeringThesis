@@ -1,3 +1,4 @@
+// diet-generator-input.component.ts
 import { Component, OnInit } from '@angular/core';
 import { DietGeneratorService } from "../services/diet-generator.service";
 import { Router } from "@angular/router";
@@ -29,6 +30,7 @@ export class DietGeneratorInputComponent implements OnInit {
     });
   }
 
+  // diet-generator-input.component.ts
   onSubmit(): void {
     if (this.dietForm && this.dietForm.valid) {  // Check for existence
       const formData = this.dietForm.value;
@@ -40,9 +42,13 @@ export class DietGeneratorInputComponent implements OnInit {
         // Assuming response contains necessary data to pass to the result component
         const resultData = response;
 
+        // Log the resultData
+        console.log('resultData:', resultData);
+
         // Navigate to the result component with the necessary data
-        this.router.navigate(['/diet-generator-result'], { state: { resultData } });
+        this.router.navigate(['/result'], { state: { resultData } });
       });
     }
   }
+
 }

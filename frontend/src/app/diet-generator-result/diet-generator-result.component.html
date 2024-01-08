@@ -1,0 +1,14 @@
+<!-- diet-generator-result.component.html -->
+<h2>Check for working</h2>
+<div>
+    <h2>Your BMI: {{ bmi }}</h2>
+    <p>Total Daily Calorie Needs: {{ calorieCalculation }}</p>
+
+    <div *ngFor="let combination of bestCombinations">
+        <h3>Suggestions for {{ combination.meal }}:</h3>
+        <ul>
+            <li *ngFor="let food of combination.combination">{{ food }}</li>
+        </ul>
+        <p>Total Calories: {{ combination.total_calories }}</p>
+    </div>
+</div>
