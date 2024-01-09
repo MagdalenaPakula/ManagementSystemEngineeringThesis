@@ -77,7 +77,7 @@ public class CartServiceImpl implements CartService {
                 document.add(table);
 
                 Paragraph footer = new Paragraph("Total : "+requestMap.get("totalAmount") + "\n"
-                + "Thank You for visiting.Please visit again", getFont("Data"));
+                        + "Thank You for visiting.Please visit again", getFont("Data"));
                 document.add(footer);
                 document.close();
                 return new ResponseEntity<>("{\"uuid\":\""+fileName+"\"}", HttpStatus.OK);
@@ -87,7 +87,7 @@ public class CartServiceImpl implements CartService {
             exception.printStackTrace();
         }
         return BusinessUtils.getResponseEntity(BusinessConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
-     }
+    }
 
 
     private void addRows(PdfPTable table, Map<String, Object> data) {
@@ -95,19 +95,20 @@ public class CartServiceImpl implements CartService {
         table.addCell((String) data.get("name"));
         table.addCell((String) data.get("category"));
         table.addCell((String) data.get("quantity"));
-        table.addCell(Float.toString((Float)data.get("price")));
-        table.addCell(Float.toString((Float)data.get("total")));
+        table.addCell(Double.toString((Double) data.get("price"))); // Use Double instead of Float
+        table.addCell(Double.toString((Double) data.get("total"))); // Use Double instead of Float
     }
+
 
     private void addTableHeader(PdfPTable table) {
         log.info("Inside addTableHeader");
         Stream.of("Name", "Category", "Quantity", "Price", "Sub Total")
                 .forEach(columnTitle ->{
                     PdfPCell header = new PdfPCell();
-                    header.setBackgroundColor(BaseColor.LIGHT_GRAY);
+                    header.setBackgroundColor(new BaseColor(240, 239, 239));
                     header.setBorderWidth(2);
                     header.setPhrase(new Phrase(columnTitle));
-                    header.setBackgroundColor(BaseColor.YELLOW);
+                    header.setBackgroundColor(new BaseColor(255, 140, 33));
                     header.setHorizontalAlignment(Element.ALIGN_CENTER);
                     header.setVerticalAlignment(Element.ALIGN_CENTER);
                     table.addCell(header);

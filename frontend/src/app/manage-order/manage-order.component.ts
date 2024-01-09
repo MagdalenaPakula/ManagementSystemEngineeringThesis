@@ -3,7 +3,6 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CategoryService} from "../services/category.service";
 import {SnackbarService} from "../services/snackbar.service";
 import {CartService} from "../services/cart.service";
-import {NgxUiLoaderService} from "ngx-ui-loader";
 import {GlobalConstants} from "../global-constants";
 import {ProductService} from "../services/product.service";
 import {saveAs} from "file-saver";
@@ -28,11 +27,9 @@ export class ManageOrderComponent implements OnInit{
               private categoryService:CategoryService,
               private productService:ProductService,
               private snackbarService:SnackbarService,
-              private cartService:CartService,
-              private ngxService:NgxUiLoaderService) {
+              private cartService:CartService) {
   }
   ngOnInit() {
-    this.ngxService.start();
     this.getCategories();
     this.manageOrderForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.pattern(GlobalConstants.nameRegex)]],
@@ -47,13 +44,22 @@ export class ManageOrderComponent implements OnInit{
   }
 
   getCategories(){
-    this.categoryService.getAllCategories();
+    this.categoryService.getFilteredCategories().subscribe((response:any)=>{
+      this.categories = response;
+    },(error:any)=>{
+      console.log(error);
+      if (error.error?.message) {
+        this.responseMessage = error.error?.message;
+      } else {
+        this.responseMessage = GlobalConstants.genericError;
+        this.snackbarService.openSnackBar(this.responseMessage, GlobalConstants.errorek);
+      }
+    });
   }
 
   getProductsByCategory(value: any){
     this.productService.getProductByCategory(value.id).subscribe((response: any) => {
       this.products = response;
-      // Assuming the response contains price information
       this.manageOrderForm.controls['price'].setValue(response.price);
       this.manageOrderForm.controls['quantity'].setValue(1);
       this.manageOrderForm.controls['total'].setValue(0);
@@ -69,21 +75,36 @@ export class ManageOrderComponent implements OnInit{
   }
 
   getProductDetails(productId: number) {
-    this.productService.getProductById(productId).subscribe((response: any) => {
-      this.price = response.price;
-      this.manageOrderForm.controls['price'].setValue(response.price);
-      this.manageOrderForm.controls['quantity'].setValue(1);
-      this.manageOrderForm.controls['total'].setValue(this.price * 1);
-    }, (error: any) => {
-      console.log(error);
-      if (error.error?.message) {
-        this.responseMessage = error.error?.message;
-      } else {
-        this.responseMessage = GlobalConstants.genericError;
-        this.snackbarService.openSnackBar(this.responseMessage, GlobalConstants.errorek);
+    console.log(productId);
+
+    this.productService.getProductById(productId).subscribe(
+      (response: any) => {  // Change the type to 'any'
+        console.log(response);
+
+        // Ensure that the response is an array and contains at least one element
+        if (Array.isArray(response) && response.length > 0) {
+          const product = response[0];
+          this.price = product.price;
+          this.manageOrderForm.controls['price'].setValue(product.price);
+          this.manageOrderForm.controls['quantity'].setValue(1);
+          this.manageOrderForm.controls['total'].setValue(this.price * 1);
+        } else {
+          console.error('Invalid or empty product data received');
+        }
+      },
+      (error: any) => {
+        console.log(error);
+        if (error.error?.message) {
+          this.responseMessage = error.error?.message;
+        } else {
+          this.responseMessage = GlobalConstants.genericError;
+          this.snackbarService.openSnackBar(this.responseMessage, GlobalConstants.errorek);
+        }
       }
-    });
+    );
   }
+
+
 
   setQuantity(value: any) {
     var temp = this.manageOrderForm.controls['quantity'].value;
@@ -111,21 +132,32 @@ export class ManageOrderComponent implements OnInit{
     }
   }
 
-  add(){
+  add() {
     var formData = this.manageOrderForm.value;
-    var productName = this.dataSource.find((e: {id:number}) => e.id === formData.product.id);
-    if(productName === undefined){
-      this.totalAmount = this.totalAmount + formData;
-      this.dataSource.push({id:formData.product.id, name:formData.product.name, category:formData.category.name, quantity:formData.quantity, price:formData.price, total:formData.total});
+    var productName = this.dataSource.find((e: { id: number }) => e.id === formData.product.id);
+
+    if (productName === undefined) {
+      const totalForProduct = formData.quantity * formData.price;
+      this.totalAmount += totalForProduct;
+
+      this.dataSource.push({
+        id: formData.product.id,
+        name: formData.product.name,
+        category: formData.category.name,
+        quantity: formData.quantity,
+        price: formData.price,
+        total: totalForProduct  // Use the calculated total for each product
+      });
+
       this.dataSource = [...this.dataSource];
       this.snackbarService.openSnackBar("Success", "Success");
-    }
-    else{
-      this.snackbarService.openSnackBar("There is an error", GlobalConstants.errorek)
+    } else {
+      this.snackbarService.openSnackBar("There is an error", GlobalConstants.errorek);
     }
   }
 
-  handleDeleteAction(value: any, element:any) {
+
+  handleDeleteAction(value: any, element: any) {
     this.totalAmount = this.totalAmount -element.total;
     this.dataSource.splice(value, 1);
     this.dataSource = [...this.dataSource];
@@ -140,7 +172,6 @@ export class ManageOrderComponent implements OnInit{
       totalAmount: this.totalAmount.toString(),
       productDetails: JSON.stringify(this.dataSource)
     }
-    this.ngxService.start();
     this.cartService.generateReport(data).subscribe((response: any)=>{
       this.downloadFile(response?.uuid);
       this.manageOrderForm.reset();
@@ -165,7 +196,6 @@ export class ManageOrderComponent implements OnInit{
     this.cartService.getPdf(data).subscribe(
       (response: any) => {
         saveAs(response, filename + ".pdf");
-        this.ngxService.stop();
       },
       (error: any) => {
         console.log(error);

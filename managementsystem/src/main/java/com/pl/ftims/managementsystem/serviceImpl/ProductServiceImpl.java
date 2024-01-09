@@ -135,11 +135,12 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ResponseEntity<List<ProductWrapper>> getProductById(Integer id) {
         try {
-            return new ResponseEntity<>(productDao.getProductById(id), HttpStatus.OK);
+            List<ProductWrapper> products = productDao.getProductById(id);
+            return new ResponseEntity<>(products, HttpStatus.OK);
         } catch (Exception exception) {
             exception.printStackTrace();
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     public boolean validateProductMap(Map<String, String> requestMap, boolean validateId) {

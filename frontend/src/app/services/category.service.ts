@@ -23,6 +23,10 @@ export class CategoryService {
     return this.http.post(`${this.baseUrl}/update`, categoryData);
   }
 
+  getFilteredCategories(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/get?filterValue=true`);
+  }
+
   deleteCategory(id: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/delete/${id}`, id);
   }
