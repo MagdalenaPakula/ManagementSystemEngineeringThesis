@@ -37,8 +37,15 @@ export class ProductService {
     return this.http.get(`${this.baseUrl}/getProductByCategory/${categoryId}`);
   }
 
-  getProductById(productId: number): Observable<any> {
+  // getProductById(productId: number): Observable<any> {
+  //   return this.http.get(`${this.baseUrl}/getProductById/${productId}`);
+  // }
+
+  getProductById(id: any) {
+    const productId = typeof id === 'object' ? id.id : id;
     return this.http.get(`${this.baseUrl}/getProductById/${productId}`);
   }
+
+
 
 }

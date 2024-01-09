@@ -32,6 +32,10 @@ import { MyAccountComponent } from './my-account/my-account.component';
 import { DietGeneratorResultComponent } from './diet-generator-result/diet-generator-result.component';
 import { DietGeneratorInputComponent } from './diet-generator-input/diet-generator-input.component';
 import { DietGeneratorComponent } from './diet-generator/diet-generator.component';
+import {MatCardModule} from "@angular/material/card";
+import {MatSelectModule} from "@angular/material/select";
+import {MatTableModule} from "@angular/material/table";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
@@ -88,6 +92,10 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
         },
       },
     }),
+    MatCardModule,
+    MatSelectModule,
+    MatTableModule,
+    MatTooltipModule,
   ],
   providers: [
       {
