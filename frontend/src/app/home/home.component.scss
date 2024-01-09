@@ -124,7 +124,6 @@
   }
 }
 
-
 .product-container {
   display: flex;
   flex-wrap: wrap;
@@ -164,8 +163,53 @@
   position: fixed;
   bottom: 30px;
   right: 30px;
+
+  .bot-image {
+    /* Add any additional styles for the image */
+    margin-left: 120px;
+    width: 48px; /* Adjust width as needed */
+    height: 48px; /* Adjust height as needed */
+  }
+
 }
 
+/* Write message input */
+.message-input {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  outline: none;
+  margin-right: 10px;
+}
+
+/* Send button */
+.send-button {
+  background-color: #ff8c21;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    background-color: #444444;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.chatbox__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+h4{
+  font-weight: bold;
+  text-align: center;
+}
 .chatbox--active {
   transform: translateY(-40px);
   z-index: 123456;
@@ -185,6 +229,60 @@
   box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
   cursor: pointer;
 }
+
+.chatbox__messages {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.chatbox__support {
+  max-width: 300px;
+  max-height: 500px;
+  overflow-y: auto;
+  padding: 20px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+
+.bot-message, .user-message {
+  align-self: flex-start;
+  text-align: left;
+  margin: 5px;
+}
+
+.message-content {
+  align-self: flex-end;
+  text-align: right;
+  font-weight: bold;
+  background-color: #F0EFEF;
+  border-radius: 10px;
+  max-width: 70%;
+  word-wrap: break-word;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.message-body {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: #ff8c21;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 70%;
+  word-wrap: break-word;
+}
+
+
+
+
 
 
 

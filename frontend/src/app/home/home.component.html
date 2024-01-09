@@ -22,7 +22,7 @@
 
     <div class="search-bar">
       <img src="assets/lupa.png" alt="Lupa Icon" class="icon" />
-      <input type="text" placeholder="Search..." [(ngModel)]="userInput" (input)="filterProducts()" />
+      <input type="text" placeholder="Search..." [(ngModel)]="searchInput" (input)="filterProducts()" />
     </div>
 
     <div class="menu-item basket">
@@ -71,25 +71,35 @@
     <div class="chatbox__support" [ngClass]="{ 'chatbox--active': chatboxActive }">
       <div class="chatbox__header">
         <div class="chatbox__image--header">
-          <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-5--v1.png" alt="image">
+          <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-5--v1.png" alt="bot-image" class="bot-image">
         </div>
         <div class="chatbox__content--header">
           <h4 class="chatbox__heading--header">Chat support</h4>
           <p class="chatbox__description--header">Hi. My name is Sam. How can I help you?</p>
         </div>
       </div>
+
       <div class="chatbox__messages">
-        <div *ngFor="let message of chatHistory" class="messages__item" [ngClass]="{'messages__item--visitor': message.name === 'User', 'messages__item--operator': message.name === 'Sam'}">
-          {{ message.message }}
+        <div *ngFor="let message of chatHistory" class="messages__item">
+          <div *ngIf="message.user === 'User'; else botMessage" class="user-message">
+            <span class="message-content">{{ message.user }}:</span>
+            <div class="message-body">{{ message.bot }}</div>
+          </div>
+          <ng-template #botMessage>
+            <div class="bot-message">
+              <span class="message-content">{{ message.user }}</span>
+              <div class="message-body">{{ message.bot }}</div>
+            </div>
+          </ng-template>
         </div>
       </div>
+
       <div class="chatbox__footer">
-        <input [(ngModel)]="userInput" placeholder="Write a message..." />
-        <button class="chatbox__send--footer send__button" (click)="sendMessage()">Send</button>
+        <input [(ngModel)]="chatInput" placeholder="Write a message..." class="message-input" />
+        <button class="chatbox__send--footer send-button" (click)="sendMessage()">Send</button>
+
       </div>
     </div>
-    <div class="chatbox__button">
-      <button (click)="toggleChatbox()">Toggle Chat</button>
-    </div>
   </div>
+
 </div>

@@ -13,8 +13,10 @@ import {CategoryService} from "../services/category.service";
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
-  userInput: string = '';
-  chatHistory: any[] = [];
+  searchInput: string = '';
+  chatInput: string = '';
+  chatHistory: { user: string, bot: string }[] = [];
+
 
   products: any[] = [];
   categories: any[] = [];
@@ -65,17 +67,14 @@ export class HomeComponent implements OnInit {
 
   // CHATBOT
   sendMessage() {
-    this.chatService.sendMessage(this.userInput).subscribe((response) => {
-      this.chatHistory.push({user: this.userInput, bot: response.answer});
-      this.userInput = ''; // Clear the input field
+    this.chatService.sendMessage(this.chatInput).subscribe((response) => {
+      this.chatHistory.push({ user: this.chatInput, bot: response.answer });
+      this.chatInput = ''; // Clear the input field
     });
   }
 
   chatboxActive: boolean = false;
 
-  toggleChatbox() {
-    this.chatboxActive = !this.chatboxActive;
-  }
 
   // BASKET
   handleBasketButtonClick() {
@@ -85,7 +84,7 @@ export class HomeComponent implements OnInit {
   // SEARCH BAR (Method to filter products based on user input)
   // Updated method to filter products based on user input and selected category
   filterProducts() {
-    if (!this.selectedCategory && this.userInput.trim() === '') {
+    if (!this.selectedCategory && this.searchInput.trim() === '') {
       // If no category is selected and the input is empty, show all products
       this.filteredProducts = [...this.products];
     } else if (this.selectedCategory) {
@@ -96,7 +95,7 @@ export class HomeComponent implements OnInit {
     } else {
       // Filter products based on user input
       this.filteredProducts = this.products.filter(product =>
-          product.name.toLowerCase().includes(this.userInput.toLowerCase())
+          product.name.toLowerCase().includes(this.searchInput.toLowerCase())
       );
     }
   }
