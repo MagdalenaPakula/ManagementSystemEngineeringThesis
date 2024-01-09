@@ -94,9 +94,11 @@ public class CartServiceImpl implements CartService {
         log.info("Inside addRows");
         table.addCell((String) data.get("name"));
         table.addCell((String) data.get("category"));
-        table.addCell((String) data.get("quantity"));
-        table.addCell(Double.toString((Double) data.get("price"))); // Use Double instead of Float
-        table.addCell(Double.toString((Double) data.get("total"))); // Use Double instead of Float
+
+        // Assuming that "quantity," "price," and "total" are numeric values
+        table.addCell(String.valueOf(data.get("quantity")));
+        table.addCell(String.valueOf(data.get("price")));
+        table.addCell(String.valueOf(data.get("total")));
     }
 
 
