@@ -1,15 +1,79 @@
+:root {
+  --primary-color: #444444;
+  --accent-color: #FF8C21;
+  --text-color: #FFFFFF;
+  --background-color: #F0EFEF;
+}
+
+mat-card{
+  margin: 10px;
+}
+
+span{
+  padding: 10px;
+}
+
 mat-form-field{
-  padding: 5px;
+  padding: 10px;
+  width: 25%;
+}
+
+.input{
+  background-color: #FFFFFF;
 }
 
 .float-right{
   float:right;
 }
 
+th, td {
+  padding: 10px;
+  border: 1px solid var(--primary-color);
+  text-align: left;
+}
+
+th {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+}
+
+td {
+  background-color: var(--background-color);
+}
+
+
+/* Styling for the hr element */
+hr {
+  border: none;
+  border-top: 2px solid var(--primary-color);
+  margin: 20px 0;
+}
+
 table{
   width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
 }
 
 mar-card{
   padding-bottom:30px !important;
 }
+
+button {
+  border-radius: 5px;
+  margin: 5px;
+}
+
+/* Styling for the primary button (Submit & Get Bill) */
+.mat-flat-button {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+}
+
+/* Styling for the secondary button (Total Amount) */
+.mat-flat-button.float-right {
+  background-color: var(--accent-color);
+  color: var(--text-color);
+}
+
+

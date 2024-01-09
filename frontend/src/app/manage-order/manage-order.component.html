@@ -50,7 +50,7 @@
 </mat-card>
 <hr>
 <mat-card>
-<b><span>Select Prduct:</span></b>
+<b><span>Select Product</span></b>
 <form [formGroup]="manageOrderForm">
   <div fxFlex fxLayout="column">
     <div fxLayout="row wrap">
@@ -92,7 +92,7 @@
       </mat-form-field>
 
       <mat-form-field>
-        <mat-label>total</mat-label>
+        <mat-label>Total</mat-label>
         <input matInput formControlName="total" required readonly>
         <mat-error *ngIf="manageOrderForm.controls.total.touched && manageOrderForm.controls.total.invalid">
           <span *ngIf="manageOrderForm.controls.total.errors.required">This field is mandatory</span>
