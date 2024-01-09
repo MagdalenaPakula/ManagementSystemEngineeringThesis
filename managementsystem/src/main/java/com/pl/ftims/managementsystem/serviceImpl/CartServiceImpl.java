@@ -16,11 +16,9 @@ import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -120,17 +118,20 @@ public class CartServiceImpl implements CartService {
 
     private Font getFont(String type) {
         log.info("Inside getFont");
-        switch (type){
-            case "Header":
+        switch (type) {
+            case "Header" -> {
                 Font headerFont = FontFactory.getFont(FontFactory.HELVETICA_BOLDOBLIQUE, 16, BaseColor.BLACK);
                 headerFont.setStyle(Font.BOLD);
                 return headerFont;
-            case "Data":
+            }
+            case "Data" -> {
                 Font dataFont = FontFactory.getFont(FontFactory.TIMES_ROMAN, 11, BaseColor.BLACK);
                 dataFont.setStyle(Font.BOLD);
                 return dataFont;
-            default:
+            }
+            default -> {
                 return new Font();
+            }
         }
     }
 
@@ -172,7 +173,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public ResponseEntity<List<Cart>> getBills() {
-        List<Cart> list = new ArrayList<>();
+        List<Cart> list;
         if(jwtFilter.isAdmin()){
             list = cartDao.getAllBills();
         }else{
@@ -188,7 +189,7 @@ public class CartServiceImpl implements CartService {
             byte[] byteArray = new byte[0];
             if(!requestMap.containsKey("uuid") && validateRequestMap(requestMap))
                 return new ResponseEntity<>(byteArray, HttpStatus.BAD_REQUEST);
-            String filePath = BusinessConstants.STORE_LOCATION+"\\"+(String) requestMap.get("uuid") + ".pdf";
+            String filePath = BusinessConstants.STORE_LOCATION+"\\"+ requestMap.get("uuid") + ".pdf";
             if(BusinessUtils.isFileExist(filePath)){
                 byteArray = getByteArray(filePath);
                 return new ResponseEntity<>(byteArray,HttpStatus.OK);
@@ -207,8 +208,8 @@ public class CartServiceImpl implements CartService {
     @Override
     public ResponseEntity<String> deleteBill(Integer id) {
         try {
-            Optional optional = cartDao.findById(id);
-            if(!optional.isEmpty()){
+            Optional<Cart> optional = cartDao.findById(id);
+            if(optional.isPresent()){
                 cartDao.deleteById(id);
                 return BusinessUtils.getResponseEntity("Bill Deleted Successfully", HttpStatus.OK);
             }
