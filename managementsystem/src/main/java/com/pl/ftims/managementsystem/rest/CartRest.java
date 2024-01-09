@@ -14,7 +14,7 @@ public interface CartRest {
     @PostMapping(path = "/generateReport")
     ResponseEntity<String> generateReport(@RequestBody Map<String, Object> requestMap);
 
-    @GetMapping(path = "/getBills")
+    @GetMapping(path = "/ ")
     ResponseEntity<List<Cart>> getBills();
 
     @PostMapping(path = "/getPdf")
