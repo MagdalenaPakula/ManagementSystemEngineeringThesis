@@ -45,8 +45,8 @@ export class ManageOrderComponent implements OnInit{
 
   getCategories(){
     this.categoryService.getFilteredCategories().subscribe((response:any)=>{
-      this.categories = response;
-    },(error:any)=>{
+    this.categories = response;
+  },(error:any)=>{
       console.log(error);
       if (error.error?.message) {
         this.responseMessage = error.error?.message;

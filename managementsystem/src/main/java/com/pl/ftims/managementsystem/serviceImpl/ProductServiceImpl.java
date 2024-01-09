@@ -143,6 +143,7 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+
     public boolean validateProductMap(Map<String, String> requestMap, boolean validateId) {
         if (requestMap.containsKey("name")) {
             if (requestMap.containsKey("id") && validateId) {
