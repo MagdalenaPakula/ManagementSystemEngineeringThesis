@@ -36,6 +36,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatSelectModule} from "@angular/material/select";
 import {MatTableModule} from "@angular/material/table";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import { ViewBillsComponent } from './view-bills/view-bills.component';
 
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
@@ -67,7 +68,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     MyAccountComponent,
     DietGeneratorResultComponent,
     DietGeneratorInputComponent,
-    DietGeneratorComponent
+    DietGeneratorComponent,
+    ViewBillsComponent
   ],
   imports: [
     BrowserModule,

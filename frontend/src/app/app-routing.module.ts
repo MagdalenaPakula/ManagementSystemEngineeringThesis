@@ -14,6 +14,7 @@ import {MyAccountComponent} from "./my-account/my-account.component";
 import {DietGeneratorInputComponent} from "./diet-generator-input/diet-generator-input.component";
 import {DietGeneratorResultComponent} from "./diet-generator-result/diet-generator-result.component";
 import {DietGeneratorComponent} from "./diet-generator/diet-generator.component";
+import {ViewBillsComponent} from "./view-bills/view-bills.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' }, // Default route redirects to /home
@@ -33,7 +34,8 @@ const routes: Routes = [
       { path: 'category', component: ManageCategoryComponent },
       { path: 'product', component: ManageProductComponent },
       { path: 'user', component: ManageUserComponent},
-      { path: 'cart', component: ManageOrderComponent}
+      { path: 'cart', component: ManageOrderComponent},
+      { path: 'bills', component: ViewBillsComponent}
     ]
   }
 ];

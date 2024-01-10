@@ -29,4 +29,14 @@ export class CartService {
   getBills() {
     return this.http.get(`${this.baseUrl}/getBills`);
   }
+
+  delete(id: any): Observable<any> {
+    const url = `${this.baseUrl}/delete/${id}`;
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return this.http.delete(url, { headers });
+  }
 }
