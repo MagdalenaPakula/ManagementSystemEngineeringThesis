@@ -25,3 +25,12 @@ button:hover{
   background-color: #444444;
   color: #ff8c21;
 }
+
+/* dialog.component.css */
+.dialog-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}

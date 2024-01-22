@@ -35,14 +35,6 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.userService.checkToken().subscribe(
-    //   (response: any) => {
-    //     this.router.navigate(['dashboard']);
-    //   },
-    //   (error: any) => {
-    //     console.log(error);
-    //   }
-    // );
     this.productService.getAllProducts().subscribe(
         (data: any) => {
           this.products = data;
@@ -124,4 +116,9 @@ export class HomeComponent implements OnInit {
         }
     );
   }
+  addToBasket(product: any): void {
+    // Implement your logic to add the product to the basket
+    console.log(`Added ${product.name} to the basket.`);
+  }
+
 }

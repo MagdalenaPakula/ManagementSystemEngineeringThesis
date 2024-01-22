@@ -112,7 +112,7 @@ public class CategoryServiceImpl implements CategoryService {
         return false;
     }
 
-    private Category getCategoryFromMap(Map<String, String> requestMap, Boolean isAdded) {
+    public Category getCategoryFromMap(Map<String, String> requestMap, Boolean isAdded) {
         Category category = new Category();
         if (isAdded) {
             category.setId(Integer.parseInt(requestMap.get("id")));

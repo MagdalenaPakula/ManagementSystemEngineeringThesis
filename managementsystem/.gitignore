@@ -1,1 +1,53 @@
+# Maven
+target/
+*.iml
+
+# IDE
 .idea/
+
+# Application properties
+src/main/resources/application.properties
+src/main/resources/application.yml
+
+# Logs and temporary files
+*.log
+*.log.*
+logs/
+build/
+bin/
+*.war
+*.ear
+*.jar
+*.class
+
+# IntelliJ IDEA
+*.iws
+*.ipr
+*.iws.iml
+
+# Visual Studio Code
+.vscode/
+
+# Eclipse
+.classpath
+.project
+.settings/
+.metadata/
+bin/
+
+# Operating System Files
+Thumbs.db
+.DS_Store
+
+# Spring Boot DevTools
+.restart
+
+# Gradle
+.gradle/
+build/
+
+# Personal files
+personal-information.txt
+
+# Environment-specific files
+application-dev.properties

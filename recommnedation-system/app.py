@@ -64,13 +64,13 @@ def submit():
         # Calculate Total Daily Calorie needs based on activity factor
         if activity_level == 'sedentary':
             calorie_calculation = bmr * 1.2
-        elif activity_level == 'lightly active':
+        elif activity_level == 'lightly_active':
             calorie_calculation = bmr * 1.375
-        elif activity_level == 'moderately active':
+        elif activity_level == 'moderately_active':
             calorie_calculation = bmr * 1.55
-        elif activity_level == 'very active':
+        elif activity_level == 'moderately_active':
             calorie_calculation = bmr * 1.725
-        elif activity_level == 'extra active':
+        elif activity_level == 'extra_active':
             calorie_calculation = bmr * 1.9
         else:
             print("Invalid activity level input. Please choose from the provided options.")
@@ -178,11 +178,6 @@ def submit():
             # Append the combination with categories to the best_combinations list
             best_combinations.append(
                 {'meal': meal, 'combination': meal_names, 'categories': categories, 'total_calories': total_calories})
-
-        # Example: Render a result template
-        # return render_template('result.html', bmi=bmi, calorie_calculation=calorie_calculation,
-        #                        best_combinations=best_combinations)
-        # Example: Return a JSON response
 
         #  Flask routes to return JSON responses instead of rendering HTML templates. This is because Angular will communicate with the backend using HTTP requests.
         return jsonify({
