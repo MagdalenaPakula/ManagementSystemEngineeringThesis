@@ -52,7 +52,7 @@ application-dev.properties
 
 # Others
 target
-.mvn
+/.mvn
 .dockerignore
 Dockerfile
 mvnw
