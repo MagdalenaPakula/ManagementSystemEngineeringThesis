@@ -33,7 +33,6 @@ bin/
 .project
 .settings/
 .metadata/
-bin/
 
 # Operating System Files
 Thumbs.db
@@ -44,7 +43,6 @@ Thumbs.db
 
 # Gradle
 .gradle/
-build/
 
 # Personal files
 personal-information.txt
