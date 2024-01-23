@@ -51,3 +51,12 @@ personal-information.txt
 
 # Environment-specific files
 application-dev.properties
+
+# Others
+target
+.mvn
+.dockerignore
+Dockerfile
+mvnw
+mvnw.cmd
+

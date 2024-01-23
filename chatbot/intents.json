@@ -121,13 +121,11 @@
       "tag": "magda",
       "patterns": [
         "Who is the smartest in the world?",
-        "Who is the prettiest in the world?",
-        "Who is the best promotor in the world?"
+        "Who is the prettiest in the world?"
       ],
       "responses": [
         "Magda is the prettiest",
-        "Magda is the smartest",
-        "dr hab. inż. Aneta Poniszewska- Marańda is the best professor ;)"
+        "Magda is the smartest"
       ]
     },
     {

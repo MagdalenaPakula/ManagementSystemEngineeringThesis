@@ -1,0 +1,13 @@
+__pycache__
+venv
+.git
+.idea
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite
+*.log
+*.tmp
+*.swp
+*.bak

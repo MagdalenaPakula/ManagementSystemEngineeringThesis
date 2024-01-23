@@ -5,6 +5,23 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/frontend/dist" />
       <excludeFolder url="file://$MODULE_DIR$/frontend/tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/inspectionProfiles" />
+      <excludeFolder url="file://$MODULE_DIR$/chatbot/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/chatbot/venv" />
+      <excludeFolder url="file://$MODULE_DIR$/frontend/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/managementsystem/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/managementsystem/target/classes/com/pl/ftims/managementsystem/constants" />
+      <excludeFolder url="file://$MODULE_DIR$/managementsystem/target/classes/com/pl/ftims/managementsystem/dao" />
+      <excludeFolder url="file://$MODULE_DIR$/managementsystem/target/classes/com/pl/ftims/managementsystem/utils" />
+      <excludeFolder url="file://$MODULE_DIR$/managementsystem/target/generated-sources" />
+      <excludeFolder url="file://$MODULE_DIR$/managementsystem/target/generated-test-sources" />
+      <excludeFolder url="file://$MODULE_DIR$/managementsystem/target/maven-archiver" />
+      <excludeFolder url="file://$MODULE_DIR$/managementsystem/target/maven-status" />
+      <excludeFolder url="file://$MODULE_DIR$/managementsystem/target/surefire-reports" />
+      <excludeFolder url="file://$MODULE_DIR$/managementsystem/target/test-classes" />
+      <excludeFolder url="file://$MODULE_DIR$/recommnedation-system/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/recommnedation-system/others" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

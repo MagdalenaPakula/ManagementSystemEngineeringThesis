@@ -1,2 +1,7 @@
-/chatbot/venv/
-/data.pth
+/.idea
+.dockerignore
+data.pth
+.dockerignore
+Dockerfile
+/venv
+
